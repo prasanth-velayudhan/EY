@@ -1,4 +1,0 @@
-﻿CREATE USER [Web2_UAT_FZ] WITHOUT LOGIN;
-
-
-

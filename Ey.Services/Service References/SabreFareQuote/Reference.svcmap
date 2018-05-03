@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="45bd0843-a6ef-4b86-a185-749f4da4b546" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/SSSAdvShopRQ_v4-1-0.wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="xlink.xsd" MetadataType="Schema" ID="2503f7cf-a368-4072-b0c9-f4f92301b5d1" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/xlink.xsd" />
+    <MetadataFile FileName="xml.xsd" MetadataType="Schema" ID="7d4cee00-bb5c-4bbb-bdb1-7ec8be10f20a" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/xml.xsd" />
+    <MetadataFile FileName="xmldsig-core-schema.xsd" MetadataType="Schema" ID="094af0f4-8b22-4440-aa39-f8ed53d060f9" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/xmldsig-core-schema.xsd" />
+    <MetadataFile FileName="OTA2003B.xsd" MetadataType="Schema" ID="81df0802-483b-4e06-81d1-80b9d2b50e8e" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/SSSAdvShopRQ_v4-1-0.xsd" />
+    <MetadataFile FileName="envelope.xsd" MetadataType="Schema" ID="2a658785-716e-4eb4-b8af-32ea2434a1ba" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/envelope.xsd" />
+    <MetadataFile FileName="OTA2003B1.xsd" MetadataType="Schema" ID="6796db06-033d-403a-aaeb-e0d2411d4c3b" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/SSSAdvShop_CommonTypes_v4-1-0.xsd" />
+    <MetadataFile FileName="wsse.xsd" MetadataType="Schema" ID="d91f5315-5ed9-4673-b2eb-ada975a20449" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/wsse.xsd" />
+    <MetadataFile FileName="SSSAdvShopRQ_v4-1-0.wsdl" MetadataType="Wsdl" ID="503ec9e0-adf5-4edd-8aa9-936f9e1fdd46" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/SSSAdvShopRQ_v4-1-0.wsdl" />
+    <MetadataFile FileName="SSSAdvShopRQRS_v4-1-0.xsd" MetadataType="Schema" ID="6ef96065-4bdf-4dbc-9058-0cc301fa96a7" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/SSSAdvShopRQRS_v4-1-0.xsd" />
+    <MetadataFile FileName="msg-header-2_0.xsd" MetadataType="Schema" ID="8324b4b2-b5af-4b07-a640-8f1799cfc742" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/msg-header-2_0.xsd" />
+    <MetadataFile FileName="OTA2003B2.xsd" MetadataType="Schema" ID="af0c87fe-9532-475d-ac65-68642b2122d1" SourceId="1" SourceUrl="http://files.developer.sabre.com/wsdl/sabreXML1.0.00/shopping/SSSAdvShopRS_v4-1-0.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

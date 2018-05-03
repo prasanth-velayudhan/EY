@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\Sajan.sulaikha\Documents\FZassignments\Projects\FZ_OTP\apiPublish</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/ar/flydubai.Common.resources.dll">
+      <publishTime>04/22/2018 12:38:32</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>02/24/2016 19:36:08</publishTime>
+    </File>
+    <File Include="bin/Common.Logging.Core.dll">
+      <publishTime>11/14/2015 13:35:30</publishTime>
+    </File>
+    <File Include="bin/Common.Logging.dll">
+      <publishTime>11/14/2015 13:35:30</publishTime>
+    </File>
+    <File Include="bin/Common.Logging.Serilog.dll">
+      <publishTime>07/11/2016 13:57:40</publishTime>
+    </File>
+    <File Include="bin/Couchbase.NetClient.dll">
+      <publishTime>07/18/2016 14:47:26</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>03/02/2015 09:32:26</publishTime>
+    </File>
+    <File Include="bin/flydubai.Booking.Api.dll">
+      <publishTime>04/22/2018 12:38:57</publishTime>
+    </File>
+    <File Include="bin/flydubai.Business.dll">
+      <publishTime>04/22/2018 12:38:49</publishTime>
+    </File>
+    <File Include="bin/flydubai.Common.dll">
+      <publishTime>04/22/2018 12:38:32</publishTime>
+    </File>
+    <File Include="bin/flydubai.Content.Service.dll">
+      <publishTime>04/22/2018 12:38:45</publishTime>
+    </File>
+    <File Include="bin/flydubai.Content.Service.XmlSerializers.dll">
+      <publishTime>04/22/2018 12:38:46</publishTime>
+    </File>
+    <File Include="bin/flydubai.DatabaseServices.dll">
+      <publishTime>04/22/2018 12:38:36</publishTime>
+    </File>
+    <File Include="bin/flydubai.iContact.dll">
+      <publishTime>04/22/2018 12:38:31</publishTime>
+    </File>
+    <File Include="bin/flydubai.Model.dll">
+      <publishTime>04/22/2018 12:38:34</publishTime>
+    </File>
+    <File Include="bin/flydubai.Services.dll">
+      <publishTime>04/22/2018 12:38:41</publishTime>
+    </File>
+    <File Include="bin/flydubai.Services.XmlSerializers.dll">
+      <publishTime>04/22/2018 12:38:44</publishTime>
+    </File>
+    <File Include="bin/flydubai.Website.Common.dll">
+      <publishTime>04/22/2018 12:38:35</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>01/06/2011 21:24:28</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>08/20/2015 08:08:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Cors.dll">
+      <publishTime>02/13/2015 13:16:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>02/13/2015 13:16:30</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>02/13/2015 13:16:34</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>05/05/2014 11:25:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Threading.Tasks.dll">
+      <publishTime>04/07/2014 12:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Threading.Tasks.Extensions.dll">
+      <publishTime>04/07/2014 12:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/13/2016 23:06:14</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/13/2012 12:19:34</publishTime>
+    </File>
+    <File Include="bin/Raml.Api.Core.dll">
+      <publishTime>04/06/2016 13:45:16</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe.config">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.rsp">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/csi.rsp">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.AppContext.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Diagnostics.StackTrace.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.IO.FileSystem.Primitives.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe.config">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.rsp">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/27/2016 14:50:24</publishTime>
+    </File>
+    <File Include="bin/Serilog.dll">
+      <publishTime>06/27/2016 22:28:34</publishTime>
+    </File>
+    <File Include="bin/Serilog.Enrichers.Environment.dll">
+      <publishTime>07/18/2016 23:48:56</publishTime>
+    </File>
+    <File Include="bin/Serilog.Enrichers.Thread.dll">
+      <publishTime>06/28/2016 10:24:16</publishTime>
+    </File>
+    <File Include="bin/Serilog.FullNetFx.dll">
+      <publishTime>09/09/2015 22:06:50</publishTime>
+    </File>
+    <File Include="bin/Serilog.Settings.AppSettings.dll">
+      <publishTime>06/29/2016 10:17:22</publishTime>
+    </File>
+    <File Include="bin/Serilog.Sinks.File.dll">
+      <publishTime>07/04/2016 23:09:46</publishTime>
+    </File>
+    <File Include="bin/Serilog.Sinks.RollingFile.dll">
+      <publishTime>07/05/2016 01:48:16</publishTime>
+    </File>
+    <File Include="bin/SerilogWeb.Owin.dll">
+      <publishTime>04/07/2015 11:28:08</publishTime>
+    </File>
+    <File Include="bin/StackExchange.Redis.Extensions.Core.dll">
+      <publishTime>05/10/2016 21:57:56</publishTime>
+    </File>
+    <File Include="bin/StructureMap.dll">
+      <publishTime>05/03/2016 09:16:40</publishTime>
+    </File>
+    <File Include="bin/StructureMap.Net4.dll">
+      <publishTime>05/03/2016 09:16:40</publishTime>
+    </File>
+    <File Include="bin/StructureMap.Web.dll">
+      <publishTime>12/01/2015 17:10:28</publishTime>
+    </File>
+    <File Include="bin/System.Data.HashFunction.Core.dll">
+      <publishTime>11/19/2015 20:53:32</publishTime>
+    </File>
+    <File Include="bin/System.Data.HashFunction.Interfaces.dll">
+      <publishTime>11/19/2015 20:53:36</publishTime>
+    </File>
+    <File Include="bin/System.Data.HashFunction.MurmurHash.dll">
+      <publishTime>11/19/2015 20:53:38</publishTime>
+    </File>
+    <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
+      <publishTime>06/22/2015 13:56:40</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Extensions.dll">
+      <publishTime>02/19/2015 20:10:46</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>01/28/2015 04:02:42</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Primitives.dll">
+      <publishTime>02/19/2015 20:10:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Cors.dll">
+      <publishTime>01/28/2015 04:01:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>01/28/2015 04:02:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Owin.dll">
+      <publishTime>01/28/2015 04:03:16</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>01/28/2015 04:03:46</publishTime>
+    </File>
+    <File Include="bin/WebActivatorEx.dll">
+      <publishTime>12/14/2015 15:53:16</publishTime>
+    </File>
+    <File Include="Contracts/booking.raml">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/booking.ref">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/flightSearch.raml">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/flightSearch.ref">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/AddApsRq.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/AddApsRs.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/AddApsRs.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/AddQuoteRq.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/AddQuoteRs.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/apiHeaderKey.raml">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/country_list.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/Error.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/errorMessage.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/errorWarning_Response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/fareQuoteRq.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/fareQuoteRq.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/fareQuoteRs.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/fareQuoteRs.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/flight_search_request.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/forgotPasswordRq.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/forgotPasswordRsSchema.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/forgotPaswordRs.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/GetOrder.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/holdSeatRequest.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/holdSeat_Request.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/holdSeat_Response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/masterData_countries.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/masterData_routes_response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/optionalExtras_request.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/optionalExtras_Response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/optional_extras_get_list_request.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/optional_extras_list_response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/PaymentPayLaterRequest.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/PaymentPayLaterRequest.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/PaymentPayLaterResponse.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/pay_by_card_request.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/pay_by_card_request.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/pay_by_card_response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/pay_by_card_response.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/print.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/print_response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/profileSchemaRs.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/retrieveProfileschema.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/retrieve_ProfileRq.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/retrieve_ProfileRs.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/routes_response.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/travelItinerary.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/travelItinPrepareRq.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/UseVoucherRequest.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/UseVoucherRequest.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/UseVoucherResponse.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/UseVoucherResponse.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/VerifyVoucherRequest.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/VerifyVoucherRequest.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/VerifyVoucherResponse.json">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/includes/VerifyVoucherResponse.json0">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/itinerary.raml">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/itinerary.ref">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/masterData.raml">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/masterData.ref">
+      <publishTime>04/04/2017 16:44:42</publishTime>
+    </File>
+    <File Include="Contracts/optionalextras.raml">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/optionalextras.ref">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/payment.raml">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/payment.ref">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/profile.raml">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/profile.ref">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/seatMap.raml">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/seatMap.ref">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="Contracts/TravelCart.raml">
+      <publishTime>04/12/2016 13:08:05</publishTime>
+    </File>
+    <File Include="Contracts/TravelCart.ref">
+      <publishTime>04/12/2016 13:08:05</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>04/04/2017 16:44:43</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>04/22/2018 12:39:01</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>04/22/2018 12:38:59</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

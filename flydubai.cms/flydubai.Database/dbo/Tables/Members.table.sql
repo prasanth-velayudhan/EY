@@ -1,8 +1,0 @@
-﻿CREATE TABLE [dbo].[Members] (
-    [Id]           INT            IDENTITY (1, 1) NOT NULL,
-    [UserName]     NVARCHAR (MAX) NULL,
-    [PasswordSeed] NVARCHAR (MAX) NULL,
-    [PasswordHash] NVARCHAR (MAX) NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
-);
-
