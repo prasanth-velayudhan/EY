@@ -1,3 +1,0 @@
-﻿CREATE QUEUE [dbo].[SqlQueryNotificationService-77d16360-0231-42cd-9d43-c846b2ec4014]
-    WITH ACTIVATION (STATUS = ON, PROCEDURE_NAME = [dbo].[SqlQueryNotificationStoredProcedure-77d16360-0231-42cd-9d43-c846b2ec4014], MAX_QUEUE_READERS = 1, EXECUTE AS OWNER);
-
