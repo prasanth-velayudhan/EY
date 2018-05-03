@@ -1,0 +1,2 @@
+﻿CREATE USER [TERMINAL\ClustAdmin] FOR LOGIN [TERMINAL\ClustAdmin];
+

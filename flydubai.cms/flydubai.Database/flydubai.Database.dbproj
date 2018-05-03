@@ -1,0 +1,1197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>flydubai.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.0</ProjectVersion>
+    <ProjectGuid>{67cbc824-a49e-4e9b-a947-360f3dfe65c3}</ProjectGuid>
+    <DSP>Microsoft.Data.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ShowWizard>False</ShowWizard>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <IncludeSchemaNameInFileName>False</IncludeSchemaNameInFileName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchema</DefaultFileStructure>
+    <DeployToDatabaseAddToServerExplorer>True</DeployToDatabaseAddToServerExplorer>
+    <DeployToScript>True</DeployToScript>
+    <CatalogPropertiesFile>Properties\Database.sqlsettings</CatalogPropertiesFile>
+    <LoadSqlClrTypes>True</LoadSqlClrTypes>
+    <RootNamespace>flydubai.Database</RootNamespace>
+    <DefaultSchema>dbo</DefaultSchema>
+    <PreviousProjectVersion>4.0</PreviousProjectVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>sql\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TargetConnectionString>
+    </TargetConnectionString>
+    <TargetDatabase>
+    </TargetDatabase>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <SuppressWarnings>
+    </SuppressWarnings>
+    <DeploymentConfigFile>Properties\Database.sqldeployment</DeploymentConfigFile>
+    <SqlCommandVariablesFile>Properties\Database.sqlcmdvars</SqlCommandVariablesFile>
+    <DeployToDatabase>False</DeployToDatabase>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>sql\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TargetConnectionString>Data Source=TFS.splendid.int;Persist Security Info=True;User ID=sa;Pooling=False</TargetConnectionString>
+    <TargetDatabase>flydubai</TargetDatabase>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <SuppressWarnings>
+    </SuppressWarnings>
+    <DeploymentConfigFile>Properties\Database.sqldeployment</DeploymentConfigFile>
+    <SqlCommandVariablesFile>Properties\Database.sqlcmdvars</SqlCommandVariablesFile>
+    <DeployToDatabase>True</DeployToDatabase>
+  </PropertyGroup>
+  <!--Import the settings-->
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\TeamData\Microsoft.Data.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Data Generation Plans" />
+    <Folder Include="Properties\" />
+    <Folder Include="Schema Objects\" />
+    <Folder Include="Schema Objects\Database Level Objects\" />
+    <Folder Include="Schema Objects\Database Level Objects\Assemblies\" />
+    <Folder Include="Schema Objects\Database Level Objects\Database Triggers\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Schemas\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Users\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Certificates\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Asymmetric Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Master Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Signatures\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Symmetric Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Database Encryption Keys\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Database Audit Specification\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Roles\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Roles\Application Roles\" />
+    <Folder Include="Schema Objects\Database Level Objects\Security\Roles\Database Roles\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Broker Priorities\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Contracts\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Event Notifications\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Message Types\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Remote Service Binding\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Routes\" />
+    <Folder Include="Schema Objects\Database Level Objects\Service Broker\Services\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Full Text Stoplists\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Filegroups\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Files\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Full Text Catalogs\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Partition Functions\" />
+    <Folder Include="Schema Objects\Database Level Objects\Storage\Partition Schemes\" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Programmability" />
+    <Folder Include="dbo\Programmability\Defaults" />
+    <Folder Include="dbo\Programmability\Functions" />
+    <Folder Include="dbo\Programmability\Rules" />
+    <Folder Include="dbo\Programmability\Stored Procedures" />
+    <Folder Include="dbo\Programmability\Types" />
+    <Folder Include="dbo\Programmability\Types\User Defined Data Types" />
+    <Folder Include="dbo\Programmability\Types\User Defined Table Types" />
+    <Folder Include="dbo\Programmability\Types\User Defined Types CLR" />
+    <Folder Include="dbo\Programmability\Types\XML Schema Collections" />
+    <Folder Include="dbo\Service Broker" />
+    <Folder Include="dbo\Service Broker\Queues" />
+    <Folder Include="dbo\Synonyms" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Views" />
+    <Folder Include="dbo\Views\Indexes" />
+    <Folder Include="dbo\Views\Statistics" />
+    <Folder Include="dbo\Views\Triggers" />
+    <Folder Include="dbo\Constraints" />
+    <Folder Include="dbo\Indexes" />
+    <Folder Include="dbo\Keys" />
+    <Folder Include="dbo\Statistics" />
+    <Folder Include="dbo\Triggers" />
+  </ItemGroup>
+  <ItemGroup>
+    <PropertiesFile Include="Properties\Database.sqlsettings">
+    </PropertiesFile>
+    <PropertiesFile Include="Properties\Database.sqldeployment">
+    </PropertiesFile>
+    <PropertiesFile Include="Properties\Database.sqlcmdvars">
+    </PropertiesFile>
+    <Build Include="Properties\Database.sqlpermissions">
+      <ModelBuilderType>Permissions</ModelBuilderType>
+    </Build>
+  </ItemGroup>
+  <ItemGroup>
+    <BuildContributorArgument Include="OutDir=$(OutDir)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schema Objects\Database Level Objects\Storage\Files\flydubai_log.sqlfile.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Database Level Objects\Storage\Files\flydubai.sqlfile.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Database Level Objects\Security\Users\flydubai.user.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Database Level Objects\Service Broker\Routes\AutoCreatedLocal.route.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Database Level Objects\Security\Schemas\cms.schema.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CallCentres.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CallCentreVersions.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CareersFooters.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CareersFooterVersions.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CareersHeaderLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CareersLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CareersMenuItems.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CareersMenuItemVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CarHireLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Cities.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CityLocaliseds.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CodeTypeCategories.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CodeTypes.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ConfirmationLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ConnectionSearchLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ContactSubjects.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ContactSubjectVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ContactUsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ContentHeaderLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Contingencies.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ContingencyUpdates.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Countries.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CountryLocaliseds.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CustomErrorPages.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CustomPageLocaliseds.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\CustomPages.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\DateTimeLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\DepartureWindows.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\DestinationCategories.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\DestinationGuideLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\DestinationGuides.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\DestinationGuideVersionCategory.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\DestinationGuideVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Emergencies.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\EmergencyContentLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\EmergencyHeaderLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\EmergencyUpdates.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ErrorLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\EventLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Events.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\EventVersionAirport.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\EventVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ExceptionMessageAreas.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ExceptionMessages.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ExperienceCategories.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ExperienceCategoryVersionMedias.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ExperienceCategoryVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ExperienceLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FaqLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Faqs.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FaqVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FareTypeLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FareTypes.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FlightSearchContentLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FlightSearchLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FlightSearchNarrowTabLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FlightSearchTabLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FlightStatusLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FooterItems.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\FooterItemVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\GlobalPRContactLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\GlobalPRContacts.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\GlobalPRContactVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\GoogleAnalytics.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\HandBaggages.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\HowToBookLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\IFESSRCodes.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\InflightEntertainmentLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\InflightEntertainments.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\InflightEntertainmentVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\InflightMovies.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\InflightMovieVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\InterceptLightBoxes.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Languages.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Log.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MagazineLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Magazines.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MagazineVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ManageBookingNarrowTabLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ManageBookingTabLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Media.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MediaCategories.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MediaDownloadsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MemberRole.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Members.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MenuItems.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MenuItemVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileAccountLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileCommonLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileConfirmationLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileContactUsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileFareTypeLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileHomeLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileNonBookingLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileOptionalExtrasLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobilePassengerLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobilePaymentLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileResultsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileSearchLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\MobileViewTicketLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyAddPassengersDetailsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyAddPassengersFlightSummaryLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyAddPassengersLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyAddPassengersOptionalExtrasLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyCancelBookingLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyCancelSectorLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyChangeDateLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyChangeDateOptionalExtrasLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyChangeDateResultsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyNewSectorLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyOptionalExtrasLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyPassengerLimitReachedLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyProgressBarLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyRemovePassengerLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ModifyRepeatBookingLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\NewsArticleLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\NewsArticles.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\NewsArticleTags.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\NewsArticleVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\NewsArticleVersionTag.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\OperationalUpdateLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\OperationalUpdates.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\OptionalExtrasLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PassengerDetailsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PaymentLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PaymentPointLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PaymentPointPartnerTypes.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PaymentPoints.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PaymentPointVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PressContactSummaryLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PressGalleryImages.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PressGalleryImageVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PressGalleryLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PressGalleryVideos.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PressGalleryVideoVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PromotionalTeasers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\PromotionalTeaserVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\QuickLinksLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ResultsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ResultsTabLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\Roles.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\RouteMessages.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\RouteMessageVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ScheduledFlightSubscriptions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SharedLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ShowAmendmentsLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SignUpLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SignUpPreferences.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SiteSearchCategoryLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SiteSearchLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SpecialOfferLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SpecialOffers.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SpecialOfferVersionAirport.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SpecialOfferVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SubscribedScheduledFlights.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\SurveyLightBoxes.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\TAReportSearchLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\TimetableLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\TravelAgentLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\TravelAgents.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\TravelAgentVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\UaeVisas.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\UaeVisasLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\UaeVisasVersions.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\ValidationLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\VoucherLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\WaysToPayLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\WebsiteSettings.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\WhereWeFlyLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Tables\YourJourneyLabels.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ConfirmationLabels_ConfirmationHeader.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ConfirmationLabels_ConfirmationText.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ConfirmationLabels_InformationBeforeYouFlyLinkUrl.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_MobilePaymentLabels_TermsAndConditionsLinkUrl.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ModifyAddPassengersFlightSummaryLabels_Adult.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ModifyAddPassengersFlightSummaryLabels_Children.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ModifyAddPassengersFlightSummaryLabels_FareType1Name.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ModifyAddPassengersFlightSummaryLabels_FareType2Name.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_ModifyAddPassengersFlightSummaryLabels_Infant.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_OptionalExtrasLabels_ViewFullPolicyDetailsLinkUrl.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Constraints\DF_YourJourneyLabels_TermsAndConditionsLinkUrl.defconst.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CallCentre_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersFooter_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersMenuItem_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersMenuItemVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersMenuItemVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersMenuItemVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersMenuItemVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersMenuItemVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\City_Country.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CityLocalised_City.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ContactSubject_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ContactSubjectVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ContactSubjectVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ContactSubjectVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ContactSubjectVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ContactSubjectVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ContingencyUpdate_Contingency.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CountryLocalised_Country.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\DestinationGuide_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\DestinationGuideVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\DestinationGuideVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\DestinationGuideVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\DestinationGuideVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\DestinationGuideVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\EmergencyUpdate_Emergency.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\Event_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\EventVersion_Airports_Source.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\EventVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\EventVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\EventVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\EventVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\EventVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ExperienceCategory_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ExperienceCategoryVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ExperienceCategoryVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ExperienceCategoryVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ExperienceCategoryVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\ExperienceCategoryVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\Faq_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FaqVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FaqVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FaqVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FaqVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FaqVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CustomPageLocaliseds_CustomPages.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FooterItem_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FooterItemVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FooterItemVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FooterItemVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FooterItemVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\FooterItemVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\GlobalPRContact_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\GlobalPRContactVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\GlobalPRContactVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\GlobalPRContactVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\GlobalPRContactVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\GlobalPRContactVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\InflightEntertainment_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\InflightEntertainmentVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\InflightEntertainmentVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\InflightEntertainmentVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\InflightEntertainmentVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\InflightEntertainmentVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\InflightMovie_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\Magazine_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MagazineVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MagazineVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MagazineVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MagazineVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MagazineVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\Media_MediaCategory.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\Member_Roles_Source.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\Member_Roles_Target.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MenuItem_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MenuItemVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MenuItemVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MenuItemVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MenuItemVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\MenuItemVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticle_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticleVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticleVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticleVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticleVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticleVersion_Tags_Source.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticleVersion_Tags_Target.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\NewsArticleVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPoint_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointPartnerType_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointVersion_City.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointVersion_PaymentPointPartnerType.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PaymentPointVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PK_CustomPageLocaliseds.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PK_InterceptLightBox.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PK_SurveyLightBox.pkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryImage_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryImageVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryImageVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryImageVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryImageVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryImageVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryVideo_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryVideoVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryVideoVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryVideoVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryVideoVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PressGalleryVideoVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PromotionalTeaser_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PromotionalTeaserVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PromotionalTeaserVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PromotionalTeaserVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PromotionalTeaserVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\PromotionalTeaserVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\RouteMessageVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\RouteMessageVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\RouteMessageVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\RouteMessageVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\RouteMessageVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SignUpPreferences_Country.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SpecialOffer_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SpecialOfferVersion_Airports_Source.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SpecialOfferVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SpecialOfferVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SpecialOfferVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SpecialOfferVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SpecialOfferVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\SubscribedScheduledFlight_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\TravelAgent_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\TravelAgentVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\TravelAgentVersion_City.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\TravelAgentVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\TravelAgentVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\TravelAgentVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\TravelAgentVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\UaeVisas_Language.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\UaeVisasVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\UaeVisasVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\UaeVisasVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\UaeVisasVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\UaeVisasVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CallCentreVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CallCentreVersion_Country.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CallCentreVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CallCentreVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CallCentreVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CallCentreVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersFooterVersion_ApprovedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersFooterVersion_CreatedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersFooterVersion_Parent.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersFooterVersion_PublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="dbo\Keys\CareersFooterVersion_UnpublishedBy.fkey.sql">
+      <SubType>Code</SubType>
+    </Build>
+  </ItemGroup>
+  <ItemGroup>
+    <NotInBuild Include="dbo\Tables\AccountLabels.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\AiportUpdatedDateTimes.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\AirportDestinations.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\AirportInformationLabels.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\AirportInformations.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\AirportInformationVersions.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\AirportLocaliseds.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\Airports.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\BookingHistoryLabels.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\BookingLabels.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\BookingWizardLabels.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\BusServiceLabels.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\CodeTypeLocaliseds.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="dbo\Tables\NetworkWithUsLabels.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,2 @@
+﻿CREATE USER [gwedick] WITHOUT LOGIN;
+

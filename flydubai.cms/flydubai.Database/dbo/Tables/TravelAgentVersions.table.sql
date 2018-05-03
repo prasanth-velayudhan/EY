@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[TravelAgentVersions] (
+    [TravelAgentVersionId] INT            IDENTITY (1, 1) NOT NULL,
+    [Name]                 NVARCHAR (MAX) NULL,
+    [CityId]               INT            NULL,
+    [Address]              NVARCHAR (MAX) NULL,
+    [Telephone]            NVARCHAR (MAX) NULL,
+    [TelephoneHours]       NVARCHAR (MAX) NULL,
+    [Longitude]            FLOAT          NULL,
+    [Latitude]             FLOAT          NULL,
+    [ParentId]             INT            NOT NULL,
+    [UrlIdentifier]        NVARCHAR (MAX) NULL,
+    [CmsName]              NVARCHAR (MAX) NULL,
+    [Version]              INT            NOT NULL,
+    [IsDraft]              BIT            NOT NULL,
+    [CreatedById]          INT            NULL,
+    [CreatedDate]          DATETIME2 (7)  NULL,
+    [ApprovedById]         INT            NULL,
+    [ApprovedDate]         DATETIME2 (7)  NULL,
+    [PublishedById]        INT            NULL,
+    [PublishedDate]        DATETIME2 (7)  NULL,
+    [UnpublishedById]      INT            NULL,
+    [UnpublishedDate]      DATETIME2 (7)  NULL,
+    PRIMARY KEY CLUSTERED ([TravelAgentVersionId] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+

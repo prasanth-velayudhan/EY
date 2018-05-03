@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3187603F-9E05-474C-953C-C8F2692B434E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>flydubai.DatabaseServices</RootNamespace>
+    <AssemblyName>flydubai.DatabaseServices</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Splendid.Common">
+      <HintPath>..\..\packages\Splendid\Splendid.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Splendid.Data.Mapper">
+      <HintPath>..\..\packages\Splendid\Splendid.Data.Mapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Splendid.Data.Model">
+      <HintPath>..\..\packages\Splendid\Splendid.Data.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AirlineCarrierDatabaseService.cs" />
+    <Compile Include="AirportDatabaseService.cs" />
+    <Compile Include="AnalyticsDatabaseService.cs" />
+    <Compile Include="BaggageDatabaseService.cs" />
+    <Compile Include="BetaInterceptLightBoxDatabaseService.cs" />
+    <Compile Include="BetaUniquePageTitleDatabaseService.cs" />
+    <Compile Include="CityDatabaseService.cs" />
+    <Compile Include="CodeTypeDatabaseService.cs" />
+    <Compile Include="CompanionFareDatabaseService.cs" />
+    <Compile Include="Configuration\FlydubaiDatabaseServiceRegistry.cs" />
+    <Compile Include="IFareTypeIDDatabaseService.cs" />
+    <Compile Include="FareTypeIDDatabaseService.cs" />
+    <Compile Include="CurrencySettingsDatabaseService.cs" />
+    <Compile Include="DepartureWindowDatabaseService.cs" />
+    <Compile Include="IAnalyticsDatabaseService.cs" />
+    <Compile Include="IBetaInterceptLightBoxDatabaseService.cs" />
+    <Compile Include="IBetaUniquePageTitleDatabaseService.cs" />
+    <Compile Include="ICityDatabaseService.cs" />
+    <Compile Include="ICountryDatabaseService.cs" />
+    <Compile Include="CountryDatabaseService.cs" />
+    <Compile Include="ExceptionsService.cs" />
+    <Compile Include="ICurrencySettingsDatabaseService.cs" />
+    <Compile Include="IFEDatabaseService.cs" />
+    <Compile Include="IIpCountryMappingDatabaseService.cs" />
+    <Compile Include="ILabelsService.cs" />
+    <Compile Include="ILanguageService.cs" />
+    <Compile Include="ILogDatabaseService.cs" />
+    <Compile Include="IMpesaSettingsDatabaseService.cs" />
+    <Compile Include="IpCountryMappingDatabaseService.cs" />
+    <Compile Include="IRouteMessageDatabaseService.cs" />
+    <Compile Include="ISignUpPreferencesDatabaseService.cs" />
+    <Compile Include="ISpecialOfferDatabaseService.cs" />
+    <Compile Include="ISurveyLightBoxDatabaseService.cs" />
+    <Compile Include="ITravelAgentBusinessDatabaseService.cs" />
+    <Compile Include="IUserDetailsDatabaseService.cs" />
+    <Compile Include="IWebsiteSettingService.cs" />
+    <Compile Include="LabelsService.cs" />
+    <Compile Include="LanguageService.cs" />
+    <Compile Include="LogDatabaseService.cs" />
+    <Compile Include="MpesaSettingService.cs" />
+    <Compile Include="PaymentTypeService.cs" />
+    <Compile Include="MpesaSettingsDatabaseService.cs" />
+    <Compile Include="ReaccomWindowsDatabaseService.cs" />
+    <Compile Include="RouteMessageDatabaseService.cs" />
+    <Compile Include="SeatMappingDatabaseServices.cs" />
+    <Compile Include="SignUpPreferencesDatabaseService.cs" />
+    <Compile Include="SpecialOfferDatabaseService.cs" />
+    <Compile Include="SurveyLightBoxDatabaseService.cs" />
+    <Compile Include="TierTypeDatabaseService.cs" />
+    <Compile Include="TravelAgentBusinessDatabaseService.cs" />
+    <Compile Include="UserDetailsDatabaseService.cs" />
+    <Compile Include="FlydubaiContext.cs" />
+    <Compile Include="FlyDubaiContextInitialiser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="WebsiteSettingService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\flydubai.Common\flydubai.Common.csproj">
+      <Project>{618FAE1E-9D7A-4991-9754-66124516ABB7}</Project>
+      <Name>flydubai.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\flydubai.Model\flydubai.Model.csproj">
+      <Project>{2E859A04-81BF-48AC-B1D9-0726DDA794B5}</Project>
+      <Name>flydubai.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[ConnectionSearchLabels] (
+    [ConnectionSearchLabelsId]             INT            IDENTITY (1, 1) NOT NULL,
+    [ModuleTitle]                          NVARCHAR (MAX) NULL,
+    [IntroductionText]                     NVARCHAR (MAX) NULL,
+    [RoundTripOneWayAccessibilityText]     NVARCHAR (MAX) NULL,
+    [RoundTripRadioButtonLabel]            NVARCHAR (MAX) NULL,
+    [OneWayRadioButtonLabel]               NVARCHAR (MAX) NULL,
+    [FlyingFromToAccessibilityText]        NVARCHAR (MAX) NULL,
+    [FlyingFromLabelText]                  NVARCHAR (MAX) NULL,
+    [FlyingFromPlaceholderText]            NVARCHAR (MAX) NULL,
+    [FlyingToLabelText]                    NVARCHAR (MAX) NULL,
+    [FlyingToPlaceholderText]              NVARCHAR (MAX) NULL,
+    [DepartureReturnDateAccessibilityText] NVARCHAR (MAX) NULL,
+    [DepartureDateLabelText]               NVARCHAR (MAX) NULL,
+    [ReturnDateLabelText]                  NVARCHAR (MAX) NULL,
+    [ShowConnectionsAccessibilityText]     NVARCHAR (MAX) NULL,
+    [ShowConnectionsButton]                NVARCHAR (MAX) NULL,
+    [FindOutMoreLinkText]                  NVARCHAR (MAX) NULL,
+    [FindOutMoreLinkUrl]                   NVARCHAR (MAX) NULL,
+    [DohopLinkText]                        NVARCHAR (MAX) NULL,
+    [DohopLinkUrl]                         NVARCHAR (MAX) NULL,
+    [LanguageId]                           INT            NOT NULL,
+    PRIMARY KEY CLUSTERED ([ConnectionSearchLabelsId] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+

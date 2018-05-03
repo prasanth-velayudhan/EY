@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[BusServiceLabels] (
+    [BusServiceLabelsId]    INT            IDENTITY (1, 1) NOT NULL,
+    [SearchForABus]         NVARCHAR (MAX) NULL,
+    [RoundTrip]             NVARCHAR (MAX) NULL,
+    [OneWay]                NVARCHAR (MAX) NULL,
+    [From]                  NVARCHAR (MAX) NULL,
+    [To]                    NVARCHAR (MAX) NULL,
+    [OutboundDate]          NVARCHAR (MAX) NULL,
+    [ReturnDate]            NVARCHAR (MAX) NULL,
+    [Passengers]            NVARCHAR (MAX) NULL,
+    [Adults]                NVARCHAR (MAX) NULL,
+    [TwelvePlus]            NVARCHAR (MAX) NULL,
+    [Children]              NVARCHAR (MAX) NULL,
+    [TwotoTwelve]           NVARCHAR (MAX) NULL,
+    [Infants]               NVARCHAR (MAX) NULL,
+    [UnderTwo]              NVARCHAR (MAX) NULL,
+    [BookHere]              NVARCHAR (MAX) NULL,
+    [LeavingFromHintText]   NVARCHAR (MAX) NULL,
+    [GoingToHintText]       NVARCHAR (MAX) NULL,
+    [InfantsTooltipHeading] NVARCHAR (MAX) NULL,
+    [InfantsTooltipText]    NVARCHAR (MAX) NULL,
+    [LanguageId]            INT            NOT NULL,
+    PRIMARY KEY CLUSTERED ([BusServiceLabelsId] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
