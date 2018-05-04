@@ -75,7 +75,7 @@ namespace Ey.Booking.Api.Controllers
                 else
                 {
                     var segmentResults = await this._flightTask.GetFlightFareQuotes(searchCriteria, securityData);
-                    segments = new Builders.FlightSearchResultBuilder().BuildRequest(segmentResults);
+                    segments = new Builders.FlightSearchResultBuilder().BuildResponse(segmentResults, searchCriteria, securityData);
                     if (securityData != null)
                     {
                         int exptime = 45;

@@ -64,6 +64,10 @@ namespace Ey.Booking.Api.Models
         public IList<Flights> Flights { get; set; }
 
         [Required]
+        [JsonProperty("multiDayflights")]
+        public IList<MultiDayflights> MultiDayFlights { get; set; }
+
+        [Required]
         [JsonProperty("brands")]
         public IList<Brand> Brands { get; set; }
 
@@ -79,9 +83,7 @@ namespace Ey.Booking.Api.Models
         [Required]
         [JsonProperty("isCodeShare")]
         public bool IsCodeShare { get; set; }
-
-        [JsonProperty("multiDayLowestFareflights")]
-        public IList<MultiDayLowestFareFlights> MultiDayFlights { get; set; }
+       
     } // end class
 
     public partial class Brand
@@ -102,8 +104,26 @@ namespace Ey.Booking.Api.Models
         public Dictionary<IncludeServiceType, string> IncludedServices { get; set; }
 
     }
+    public partial class MultiDayflights
+    {
+        [Required]
+        [JsonProperty("lowestAdultFarePerPax")]
+        public string LowestAdultFarePerPax { get; set; }
 
-    public enum Direction
+        [Required]
+        [JsonProperty("currencyCode")]
+        public string CurrencyCode { get; set; }
+
+        [Required]
+        [JsonProperty("departureDate")]
+        public string DepartureDate { get; set; }
+
+        [Required]
+        [JsonProperty("isSoldOut")]
+        public bool IsSoldOut { get; set; }
+    }
+
+        public enum Direction
     {
         outBound, inBound, multiSector
     }

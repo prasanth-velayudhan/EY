@@ -24,6 +24,8 @@ namespace Ey.Model.Results
 
         public int FareTypeId { get; set; }
 
+        public string FareBrandId { get; set; }
+
         public string FareTypeName { get; set; }
 
         public string FareClass { get; set; }

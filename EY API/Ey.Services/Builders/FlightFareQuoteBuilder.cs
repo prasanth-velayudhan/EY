@@ -63,7 +63,7 @@ namespace Ey.Services.Builders
                     },
                     CabinPref = new CabinPrefType[] {
                         new CabinPrefType() {
-                            Cabin = searchCriteria.CabinType.Trim().ToUpper() == "ECONOMY"? CabinType.Economy: searchCriteria.CabinType.Trim().ToUpper() == "BUSINESS"? CabinType.Business : CabinType.Y,
+                            Cabin = searchCriteria.CabinType.Trim().ToUpper() == "ECONOMY"? CabinType.Economy: searchCriteria.CabinType.Trim().ToUpper() == "BUSINESS"? CabinType.Business : searchCriteria.CabinType.Trim().ToUpper() == "FIRST"? CabinType.First : CabinType.Y,
                             PreferLevel = PreferLevelType.Preferred
                         }
                     }
@@ -137,7 +137,7 @@ namespace Ey.Services.Builders
             if (serviceRes != null && serviceRes.Items != null && serviceRes.Items.Any())
             {
                 var itineraryObj = serviceRes.Items.FirstOrDefault(a => a.GetType() == typeof(OTA_AirLowFareSearchRSOneWayItineraries));
-                if(itineraryObj != null)
+                if (itineraryObj != null)
                 {
                     var itinerary = (OTA_AirLowFareSearchRSOneWayItineraries)itineraryObj;
                     var oneday = Task.Run(() => BuildOneDayItineraries(itinerary.BrandedOneWayItineraries));
@@ -157,10 +157,10 @@ namespace Ey.Services.Builders
 
         private List<OneDayJourneySegment> BuildOneDayItineraries(OTA_AirLowFareSearchRSOneWayItinerariesBrandedOneWayItineraries[] oneWayItineraries)
         {
-            if(oneWayItineraries != null && oneWayItineraries.Any())
+            if (oneWayItineraries != null && oneWayItineraries.Any())
             {
                 List<OneDayJourneySegment> segments = new List<OneDayJourneySegment>();
-                foreach(var seg in oneWayItineraries)
+                foreach (var seg in oneWayItineraries)
                 {
                     var flights = BuildOneDayFlights(seg);
                     string org = flights != null && flights.Any() ? flights.First().Origin : seg.TPA_Extensions != null && seg.TPA_Extensions.Any() ? seg.TPA_Extensions.First().DepartureAirport : null;
@@ -183,29 +183,29 @@ namespace Ey.Services.Builders
         }
         private List<Ey.Model.Common.Flight> BuildOneDayFlights(OTA_AirLowFareSearchRSOneWayItinerariesBrandedOneWayItineraries objItinerary)
         {
-            if(objItinerary.PricedItinerary != null && objItinerary.PricedItinerary.Any())
+            if (objItinerary.PricedItinerary != null && objItinerary.PricedItinerary.Any())
             {
                 return objItinerary.PricedItinerary.Select(flt => new Ey.Model.Common.Flight()
                 {
                     LFID = Convert.ToInt32(flt.SequenceNumber),
-                    Legs = BuildLegs(flt),
-                    FlightFares = BuildFlightFares(flt)
+                    Legs = BuildLegs(flt.AirItinerary, flt.SequenceNumber),
+                    FlightFares = GetFlightFares(flt.TPA_Extensions)
                 }).ToList();
             }
             return null;
         }
 
-        private List<Ey.Model.Common.Leg> BuildLegs(PricedItineraryType flt)
+        private List<Ey.Model.Common.Leg> BuildLegs(AirItineraryType airItinerary, string lfid)
         {
             List<Ey.Model.Common.Leg> legs = new List<Ey.Model.Common.Leg>();
-            if (flt != null  && flt.AirItinerary != null && flt.AirItinerary.OriginDestinationOptions != null && flt.AirItinerary.OriginDestinationOptions.Any(a => a.FlightSegment != null && a.FlightSegment.Any()))
+            if (airItinerary != null && airItinerary.OriginDestinationOptions != null && airItinerary.OriginDestinationOptions.Any(a => a.FlightSegment != null && a.FlightSegment.Any()))
             {
                 int pfid = 1;
-                foreach (var obj in flt.AirItinerary.OriginDestinationOptions.Where(a => a.FlightSegment != null && a.FlightSegment.Any()))
+                foreach (var obj in airItinerary.OriginDestinationOptions.Where(a => a.FlightSegment != null && a.FlightSegment.Any()))
                 {
                     legs.AddRange(obj.FlightSegment.Select(lg => new Ey.Model.Common.Leg()
                     {
-                        LFID = Convert.ToInt32(flt.SequenceNumber),
+                        LFID = Convert.ToInt32(lfid),
                         PFID = pfid++,
                         DepartureDate = Convert.ToDateTime(lg.DepartureDateTime),
                         ArrivalDate = Convert.ToDateTime(lg.ArrivalDateTime),
@@ -225,14 +225,140 @@ namespace Ey.Services.Builders
             return legs;
         }
 
-        private List<FlightFare> BuildFlightFares(PricedItineraryType type)
+        private List<FlightFare> GetFlightFares(PricedItineraryTypeTPA_Extensions tpa)
         {
+            if (tpa != null && tpa.AdditionalFares != null && tpa.AdditionalFares.Any(a => a.AirItineraryPricingInfo != null && a.AirItineraryPricingInfo.FareReturned))
+            {
+                return tpa.AdditionalFares.Where(a => a.AirItineraryPricingInfo != null && a.AirItineraryPricingInfo.FareReturned).SelectMany(fare => BuildFlightFare(fare)).ToList();
+            }
+
             return null;
+        }
+
+        private IList<FlightFare> BuildFlightFare(PricedItineraryTypeTPA_ExtensionsAdditionalFares fare)
+        {
+            int id = 0;
+            var fr = from pax in fare.AirItineraryPricingInfo.PTC_FareBreakdowns
+                     where pax.FareBasisCodes != null
+                     select new FlightFare()
+                     {
+                         PaxId = (++id).ToString(),
+                         FareBrandId = fare.AirItineraryPricingInfo.BrandID,
+                         FareTypeName = fare.AirItineraryPricingInfo.BrandID,
+                         FareAmount = pax.PassengerFare != null && pax.PassengerFare.TotalFare != null ? pax.PassengerFare.TotalFare.Amount : 0,
+                         WebFareAmount = pax.PassengerFare != null && pax.PassengerFare.TotalFare != null ? pax.PassengerFare.TotalFare.Amount : 0,
+                         PaxCount = pax.PassengerTypeQuantity != null ? Convert.ToInt32(pax.PassengerTypeQuantity.Quantity) : 0,
+                         PassengerTypeId = pax.PassengerTypeQuantity != null ? getPaxType(pax.PassengerTypeQuantity.Code) : Common.Enums.PassengerTypes.Adult,
+                         FareBasisCode = pax.FareBasisCodes != null ? pax.FareBasisCodes.First().Value : "",
+                         IsPrivateFare = !string.IsNullOrEmpty(pax.PrivateFareType),
+                         Cabin = pax.FareInfos != null && pax.FareInfos.Any(a => a.TPA_Extensions != null) ? pax.FareInfos.First().TPA_Extensions.Cabin.Cabin : "",
+                         SeatsAvailable = pax.FareInfos != null && pax.FareInfos.Any(a => a.TPA_Extensions != null) ? pax.FareInfos.First().TPA_Extensions.SeatsRemaining.Number : 0,
+                         DisplayAmountNoTaxes = pax.PassengerFare != null ? pax.PassengerFare.EquivFare.Amount : 0,
+                         Taxes = pax.PassengerFare != null && pax.PassengerFare.Taxes != null && pax.PassengerFare.Taxes.TotalTax != null ? pax.PassengerFare.Taxes.TotalTax.Amount : 0,
+                         FareAmtNoTaxes = pax.PassengerFare != null ? pax.PassengerFare.EquivFare.Amount : 0
+                     };
+
+            return fr.ToList();
+        }
+
+        private Common.Enums.PassengerTypes getPaxType(string code)
+        {
+            return code == "ADT" ? Common.Enums.PassengerTypes.Adult : code == "CHD" ? Common.Enums.PassengerTypes.Child : Common.Enums.PassengerTypes.Infant;
         }
 
         private List<MultipleDayJourneySegment> BuildMultiDayItineraries(OTA_AirLowFareSearchRSOneWayItinerariesSimpleOneWayItineraries[] multiDayWayItineraries)
         {
+            List<MultipleDayJourneySegment> multiSegs = new List<MultipleDayJourneySegment>();
+            if (multiDayWayItineraries != null && multiDayWayItineraries.Any(a => a.PricedItinerary != null && a.PricedItinerary.Any()))
+            {
+                multiSegs.AddRange(multiDayWayItineraries.Where(a => a.PricedItinerary != null && a.PricedItinerary.Any()).SelectMany(b => GetMultiDaySegment(b.RPH, b.PricedItinerary)).ToList());
+            }
+
+            if (multiDayWayItineraries.Any(a => a.TPA_Extensions != null && a.TPA_Extensions.Any(b => !string.IsNullOrEmpty(b.Message) && b.Message == "NO SCHEDULES")))
+            {
+                foreach (var p in multiDayWayItineraries.Where(a => a.TPA_Extensions != null && a.TPA_Extensions.Any(b => !string.IsNullOrEmpty(b.Message) && b.Message == "NO SCHEDULES")))
+                {
+                    multiSegs.AddRange(p.TPA_Extensions.Where(a => a.Message == "NO SCHEDULES").Select(emptyFlt => new MultipleDayJourneySegment()
+                    {
+                        Origin = emptyFlt.DepartureAirport,
+                        Destination = emptyFlt.ArrivalAirport,
+                        SearchedFromDate = emptyFlt.DepartureDate,
+                        JourneySegmentId = Convert.ToInt32(p.RPH),
+                        DayLowestFares = new List<DayLowestFare>() { new DayLowestFare
+                        {
+                            Date = emptyFlt.DepartureDate.Date,
+                            FareAmount = 0,
+                            WebFareAmount = 0,
+                            WebFareAmountNoTax = 0,
+                            WebTaxSum = 0,
+                            FareType = 0,
+                            AvailableSeats = 0,
+                            isSoldOut = true,
+                            isCodeShare = false,
+                            isInterline = false
+                        }}
+                    }));
+                }
+            }
+
+            return multiSegs;
+        }
+
+        private List<MultipleDayJourneySegment> GetMultiDaySegment(string Rph, PricedItineraryType[] PricedItinerary)
+        {
+            List<MultipleDayJourneySegment> segs = new List<MultipleDayJourneySegment>();
+            foreach (var days in PricedItinerary)
+            {
+                var flts = BuildMultiDayFlight(days);
+                if (flts != null && flts.Any())
+                {
+                    var flt = flts.First();
+                    segs.Add(new MultipleDayJourneySegment()
+                    {
+                        JourneySegmentId = Convert.ToInt32(Rph),
+                        Origin = flt.Origin,
+                        Destination = flt.Destination,
+                        SearchedFromDate = flt.DepartureDate,
+                        SearchedToDate = flt.ArrivalDate,
+                        DayLowestFares = BuildLowestFare(days.AirItineraryPricingInfo, flt.DepartureDate)
+                    });
+                }
+            }
+            return segs;
+        }
+
+        private IList<Ey.Model.Common.Flight> BuildMultiDayFlight(PricedItineraryType flt)
+        {
+            if (flt != null && flt.AirItinerary != null && flt.AirItinerary.OriginDestinationOptions != null && flt.AirItinerary.OriginDestinationOptions.Any(a => a.FlightSegment != null && a.FlightSegment.Any()))
+            {
+                return flt.AirItinerary.OriginDestinationOptions.Where(a => a.FlightSegment != null && a.FlightSegment.Any()).Select(ft => new Ey.Model.Common.Flight()
+                {
+                    LFID = Convert.ToInt32(flt.SequenceNumber),
+                    Legs = BuildLegs(flt.AirItinerary, flt.SequenceNumber)
+                }).ToList();
+            }
             return null;
+        }
+        private List<DayLowestFare> BuildLowestFare(PricedItineraryTypeAirItineraryPricingInfo[] airItineraryPricingInfo, DateTime date)
+        {
+            List<DayLowestFare> lowestFares = new List<DayLowestFare>();
+            if (airItineraryPricingInfo != null && airItineraryPricingInfo.Any())
+            {
+                var obj = airItineraryPricingInfo.First();
+
+                lowestFares.Add(new DayLowestFare()
+                {
+                    Date = date,
+                    FareAmount = obj.ItinTotalFare != null && obj.ItinTotalFare.TotalFare != null ? obj.ItinTotalFare.TotalFare.Amount : 0,
+                    WebFareAmount = obj.ItinTotalFare != null && obj.ItinTotalFare.TotalFare != null ? obj.ItinTotalFare.TotalFare.Amount : 0,
+                    WebFareAmountNoTax = obj.ItinTotalFare != null && obj.ItinTotalFare.EquivFare != null ? obj.ItinTotalFare.EquivFare.Amount : 0,
+                    WebTaxSum = obj.ItinTotalFare != null && obj.ItinTotalFare.Taxes != null && obj.ItinTotalFare.Taxes.Tax != null && obj.ItinTotalFare.Taxes.Tax.Any(a => a.TaxCode == "TOTALTAX") ? obj.ItinTotalFare.Taxes.Tax.First(a => a.TaxCode == "TOTALTAX").Amount : 0,
+                    FareType = 0,
+                    AvailableSeats = obj.FareInfos.First().TPA_Extensions.SeatsRemaining.Number
+                });
+            }
+
+            return lowestFares;
         }
     }
 }
