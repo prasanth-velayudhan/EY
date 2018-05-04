@@ -113,10 +113,6 @@
       <Project>{618FAE1E-9D7A-4991-9754-66124516ABB7}</Project>
       <Name>Ey.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ey.DatabaseServices\Ey.DatabaseServices.csproj">
-      <Project>{3187603F-9E05-474C-953C-C8F2692B434E}</Project>
-      <Name>Ey.DatabaseServices</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ey.Model\Ey.Model.csproj">
       <Project>{2E859A04-81BF-48AC-B1D9-0726DDA794B5}</Project>
       <Name>Ey.Model</Name>
