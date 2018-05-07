@@ -11,5 +11,7 @@ namespace Ey.Model.Results
         public List<OneDayJourneySegment> OneDayItineraries { get; set; }
 
         public List<MultipleDayJourneySegment> MultiDayItineraries { get; set; }
+
+        public List<BrandedFareInfo> BrandedFareInfo { get; set; }
     }
 }

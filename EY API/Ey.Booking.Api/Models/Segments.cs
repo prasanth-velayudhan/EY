@@ -103,6 +103,9 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("includes")]
         public Dictionary<IncludeServiceType, string> IncludedServices { get; set; }
 
+        [Required]
+        [JsonProperty("orderId")]
+        public int OrderId { get; set; }
     }
     public partial class MultiDayflights
     {

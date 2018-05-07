@@ -22,18 +22,13 @@ namespace Ey.Booking.Api.Builders
         {
             this.searchCriteria = searchCriteria;
             this._securityData = securityData;
-            return BuildSegments(response.OneDayItineraries, response.MultiDayItineraries);
-        }
-
-        public List<Segments> BuildSegments(List<OneDayJourneySegment> oneDayResult, List<MultipleDayJourneySegment> multiDayResult)
-        {
             List<Segments> segments = new List<Segments>();
-            if (oneDayResult != null && oneDayResult.Count > 0)
+            if (response.OneDayItineraries != null && response.OneDayItineraries.Count > 0)
             {
                 currency = this.searchCriteria.CurrencyCode;
-                for (int i = 0; i < oneDayResult.Count(); ++i)
+                for (int i = 0; i < response.OneDayItineraries.Count(); ++i)
                 {
-                    OneDayJourneySegment segmentItem = oneDayResult[i];
+                    OneDayJourneySegment segmentItem = response.OneDayItineraries[i];
                     Segments segment = new Segments();
                     segment.Origin = segmentItem.Origin;
                     segment.Dest = segmentItem.Destination;
@@ -57,22 +52,23 @@ namespace Ey.Booking.Api.Builders
                                      {
                                          FareTypeID = x.FareTypeID,
                                          FareTypeName = x.FareTypeName,
-                                         CabinType = x.Cabin.ToString()
-
+                                         CabinType = x.Cabin.ToString(),
+                                         OrderId = getFareOrderId(x.FareTypeID)
                                      }
                                      ).GroupBy(fb => fb.FareTypeID).OrderBy(x => x.Key)
                                      .Select(g => g.First());
 
 
                     segment.Brands = new List<Brand>();
-                    foreach (var brandInfo in distinctFareBrands)
+                    foreach (var brandInfo in distinctFareBrands.OrderBy(a => a.OrderId))
                     {
                         segment.Brands.Add(new Brand
                         {
                             FareTypeID = brandInfo.FareTypeID.ToString(),
                             Cabin = brandInfo.CabinType.ToUpper() == "BUSINESS" ? Cabin.business : brandInfo.CabinType.ToUpper() == "ECONOMY" ? Cabin.economy : Cabin.first,
                             Name = Constants.FareBrandIds.Where(x => x.Key == brandInfo.FareTypeName).FirstOrDefault().Value,
-                            IncludedServices = BuildBrandIncludeServices(segment.Flights, brandInfo.FareTypeID.ToString())
+                            IncludedServices = BuildBrandIncludeServices(segment.Flights, response.BrandedFareInfo, segmentItem.JourneySegmentId, brandInfo.FareTypeID.ToString()),
+                            OrderId = brandInfo.OrderId
                         });
                     }
                     segment.Notifications = new List<Notification>();
@@ -87,7 +83,7 @@ namespace Ey.Booking.Api.Builders
                         });
                     }
 
-                    segment.MultiDayFlights = BuildMultiDaySegments(multiDayResult.Where(a => a.JourneySegmentId == segmentItem.JourneySegmentId).ToList(), 7);
+                    segment.MultiDayFlights = BuildMultiDaySegments(response.MultiDayItineraries.Where(a => a.JourneySegmentId == segmentItem.JourneySegmentId).ToList(), 7);
 
                     segments.Add(segment);
                 }
@@ -96,22 +92,109 @@ namespace Ey.Booking.Api.Builders
             //faresToPointsRQ = string.Join(",", faresForConversion.Distinct());
             return segments;
         }
+        public static T GetPropertyValue<T>(object obj, string propName) { return (T)obj.GetType().GetProperty(propName).GetValue(obj, null); }
 
-        private Dictionary<IncludeServiceType, string> BuildBrandIncludeServices(IList<Flights> flights, string faretypeId)
+        private Dictionary<IncludeServiceType, string> BuildBrandIncludeServices(IList<Flights> flights, List<BrandedFareInfo> BrandedFareInfo, int segmentId, string faretypeId = "")
         {
-            return new Dictionary<IncludeServiceType, string>()
+            try
             {
-                {IncludeServiceType.RFNDELG, "true"},
-                {IncludeServiceType.CHDTELG, "true"},
-                {IncludeServiceType.UPGRELG, "true"},
-                {IncludeServiceType.PRCHKIN, "true"},
-                {IncludeServiceType.CHKDBAG, "30KG"},
-                {IncludeServiceType.MILEARN, "500"},
-                {IncludeServiceType.CHDTFEE, "AED 100"},
-                {IncludeServiceType.RFNDFEE, "AED 100"},
-            };
-        }
+                Dictionary<IncludeServiceType, string> includedItems = new Dictionary<IncludeServiceType, string>();
+                if (BrandedFareInfo != null && BrandedFareInfo.Any(a => a.SegmentId == segmentId))
+                {
+                    var brand = BrandedFareInfo.FirstOrDefault(a => a.SegmentId == segmentId);
+                    if (brand != null && brand.baggage != null)
+                    {
+                        string value = GetPropertyValue<string>(brand.baggage, faretypeId.ToLower() + "Values");
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            includedItems.Add(IncludeServiceType.CHKDBAG, value);
+                        }
+                    }
 
+                    if (brand != null && brand.upgrade != null)
+                    {
+                        string value = GetPropertyValue<string>(brand.upgrade, faretypeId.ToLower() + "Values");
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            includedItems.Add(IncludeServiceType.UPGRELG, (value.EndsWith("Upgrade.Yes") ? true : false).ToString());
+                        }
+                    }
+                    if (brand != null && brand.refund != null)
+                    {
+                        BrandedFareInfo.changeValues value = GetPropertyValue<BrandedFareInfo.changeValues>(brand.refund, faretypeId.ToLower() + "Values");
+                        if (value != null)
+                        {
+                            includedItems.Add(IncludeServiceType.RFNDELG, value.isRefundable.ToString());
+                            if (value.isRefundable && !string.IsNullOrEmpty(value.charge))
+                            {
+                                includedItems.Add(IncludeServiceType.RFNDFEE, value.charge.Split('|').First());
+                            }
+                        }
+                    }
+                    if (brand != null && brand.preferredSeat != null)
+                    {
+                        string value = GetPropertyValue<string>(brand.preferredSeat, faretypeId.ToLower() + "Values");
+                        if (!string.IsNullOrEmpty(value) && value.Contains('.'))
+                        {
+                            includedItems.Add(IncludeServiceType.PRFSEAT, value.Split('.').Last());
+                        }
+                    }
+
+                    if (brand != null && brand.milesEarned != null)
+                    {
+                        BrandedFareInfo.ErnedValues value = GetPropertyValue<BrandedFareInfo.ErnedValues>(brand.milesEarned, faretypeId.ToLower() + "Values");
+                        if (value != null && !string.IsNullOrEmpty(value.etihad) && value.etihad.EndsWith(".Miles") && value.etihad.Contains('|'))
+                        {
+                            includedItems.Add(IncludeServiceType.MILEARN, value.etihad.Split('|').First());
+                        }
+                    }
+
+                    if (brand != null && brand.checkIn != null)
+                    {
+                        string value = GetPropertyValue<string>(brand.checkIn, faretypeId.ToLower() + "Values");
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            includedItems.Add(IncludeServiceType.PRCHKIN, (value.EndsWith("Priority.Yes") ? true : false).ToString());
+                        }
+                    }
+                    if (brand != null && brand.changeTravel != null)
+                    {
+                        BrandedFareInfo.changeValues value = GetPropertyValue<BrandedFareInfo.changeValues>(brand.changeTravel, faretypeId.ToLower() + "Values");
+                        if (value != null)
+                        {
+                            includedItems.Add(IncludeServiceType.CHDTELG, value.isChangeable.ToString());
+                            if (value.isChangeable && !string.IsNullOrEmpty(value.charge))
+                            {
+                                includedItems.Add(IncludeServiceType.CHDTFEE, value.charge.Split('|').First());
+                            }
+                        }
+                    }
+                }
+                return includedItems;
+            }
+            catch (Exception ex)
+            {
+                return new Dictionary<IncludeServiceType, string>()
+                {
+                    {IncludeServiceType.RFNDELG, "true"},
+                    {IncludeServiceType.CHDTELG, "true"},
+                    {IncludeServiceType.UPGRELG, "true"},
+                    {IncludeServiceType.PRCHKIN, "true"},
+                    {IncludeServiceType.CHKDBAG, "30KG"},
+                    {IncludeServiceType.MILEARN, "500"},
+                    {IncludeServiceType.CHDTFEE, "AED 100"},
+                    {IncludeServiceType.RFNDFEE, "AED 100"},
+                };
+            }
+        }
+        private int getFareOrderId(string brandId)
+        {
+            if (Enum.IsDefined(typeof(Ey.Common.Enums.FareBrandOrder), (brandId ?? "").Trim()))
+            {
+                return (int)Enum.Parse(typeof(Ey.Common.Enums.FareBrandOrder), brandId.Trim());
+            }
+            return 0;
+        }
         public List<Flights> BuildFlights(OneDayJourneySegment segmentItem, bool IsRerpice)
         {
             List<Flights> flights = new List<Flights>();
@@ -205,12 +288,14 @@ namespace Ey.Booking.Api.Builders
                             FareInformation = fareType.FareInformation,
                             scToken = this.IsInclude && this._securityData != null && !string.IsNullOrEmpty(this._securityData.SabreToken) ? this._securityData.SabreToken : string.Empty
                         });
+
+                        fareType.OrderId = getFareOrderId(fType.FirstOrDefault().FareBrandId);
                         fareTypes.Add(fareType);
                     }
                 }
             }
 
-            return fareTypes;
+            return fareTypes.OrderBy(a => a.OrderId).ToList();
         }
 
         private Dictionary<IncludeServiceType, string> BuildIncludedServices(FlightFare fType)

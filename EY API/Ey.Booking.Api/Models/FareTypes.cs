@@ -77,6 +77,10 @@ namespace Ey.Booking.Api.Models
         [Required]
         [JsonProperty("containsConnectionFlight")]
         public bool ContainsConnectionFlight { get; set; }
+
+
+        [JsonProperty("orderId")]
+        public int OrderId { get; set; }
     }
 
     public partial class Fare

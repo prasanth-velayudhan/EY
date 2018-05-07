@@ -33,11 +33,12 @@ namespace Ey.Services.Builders
 
         public OTA_AirLowFareSearchRQ GetFlightFareSearchRequest(SearchCriteria searchCriteria)
         {
-            string defaultCurrency = ConfigurationManager.AppSettings["DefaultCurrencyCode"];
+            string poc = searchCriteria != null && searchCriteria.Flights.Any() ? searchCriteria.Flights.First().Origin : "";
+            string defaultCurrency = Common.Constants.AirportCurrencyCodes.ContainsKey(poc) ? Common.Constants.AirportCountryCodes[poc] : ConfigurationManager.AppSettings["DefaultCurrencyCode"];
             return new OTA_AirLowFareSearchRQ()
             {
                 Version = "4.1.0",
-                POS = new SourceType[] { new SourceType() { PseudoCityCode = searchCriteria != null && searchCriteria.Flights.Any() ? searchCriteria.Flights.First().Origin : "",
+                POS = new SourceType[] { new SourceType() { PseudoCityCode = poc,
                     RequestorID = new UniqueID_Type() { Type="0.AAA.X", ID = "REQ.ID", CompanyName = new CompanyNameType() { Code = "SSW" } } }
                 },
                 OriginDestinationInformation = searchCriteria != null && searchCriteria.Flights.Any() ?
@@ -189,7 +190,8 @@ namespace Ey.Services.Builders
                 {
                     LFID = Convert.ToInt32(flt.SequenceNumber),
                     Legs = BuildLegs(flt.AirItinerary, flt.SequenceNumber),
-                    FlightFares = GetFlightFares(flt.TPA_Extensions)
+                    FlightFares = GetFlightFares(flt.TPA_Extensions),
+                    flighttime = flt.AirItinerary != null && flt.AirItinerary.OriginDestinationOptions != null && flt.AirItinerary.OriginDestinationOptions.Any() ? flt.AirItinerary.OriginDestinationOptions.First().ElapsedTime : 0
                 }).ToList();
             }
             return null;

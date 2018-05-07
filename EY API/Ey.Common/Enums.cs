@@ -23,6 +23,11 @@ namespace Ey.Common
             Infant = 5
         }
 
+        public enum FareBrandOrder
+        {
+            YB = 1, YS = 2, YV = 3, YF = 4, JB = 5, JS = 6, JF = 7, FI = 8
+        }
+
         public enum PhoneType
         {
             Home,

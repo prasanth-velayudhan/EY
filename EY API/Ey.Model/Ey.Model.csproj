@@ -53,6 +53,7 @@
     <Compile Include="Booking\IncludedBaggage.cs" />
     <Compile Include="Common\Flight.cs" />
     <Compile Include="Common\Leg.cs" />
+    <Compile Include="Results\BrandedFareInfo.cs" />
     <Compile Include="Results\CombinabilityMapping.cs" />
     <Compile Include="Results\DayLowestFare.cs" />
     <Compile Include="Results\FlightFare.cs" />
