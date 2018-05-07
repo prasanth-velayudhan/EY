@@ -3,6 +3,7 @@ using Ey.Business;
 using Ey.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -43,7 +44,7 @@ namespace Ey.Booking.Api.Controllers
                 {
                     flightCriteria.Add(new Model.Search.FlightCriteria
                     {
-                        DepartureDate = Convert.ToDateTime(criteria.Date),
+                        DepartureDate = DateTime.ParseExact(criteria.Date, "M/d/yy hh:mm tt", CultureInfo.InvariantCulture),
                         Origin = criteria.Origin,
                         Destination = criteria.Dest,
                         FlightDirection = Convert.ToString(criteria.Direction).ToLower()
