@@ -106,11 +106,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\FlightFareQuoteBuilder.cs" />
+    <Compile Include="HttpClientService.cs" />
     <Compile Include="IFlightService.cs" />
+    <Compile Include="IHttpClientService.cs" />
     <Compile Include="Model\SoapRequest.cs" />
     <Compile Include="FlightService.cs" />
-    <Compile Include="RetrieveFareQuoteByDateRange.cs" />
-    <Compile Include="RetrieveFareQuoteDateRangeRequest.cs" />
     <Compile Include="SecurityService.cs" />
     <Compile Include="Service References\SabreFareQuote\Reference.cs">
       <AutoGen>True</AutoGen>

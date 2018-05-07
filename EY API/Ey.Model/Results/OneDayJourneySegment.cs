@@ -43,5 +43,6 @@ namespace Ey.Model.Results
         public string FareTypeID { get; set; }
         public string FareTypeName { get; set; }
         public string CabinType { get; set; }
+        public int OrderId { get; set; }
     }
 }

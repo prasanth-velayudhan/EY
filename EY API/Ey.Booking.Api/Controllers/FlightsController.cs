@@ -146,10 +146,10 @@ namespace Ey.Booking.Api.Controllers
                 }
             }
 
-            //if (searchCriteria.Adults + searchCriteria.Children > 9)
-            //{
-            //    validationMessages.Add(BuildValidationMessage("TotalPassengerValidation"));
-            //}
+            if (searchCriteria.Adults + searchCriteria.Children > 9)
+            {
+                validationMessages.Add(BuildValidationMessage("TotalPassengerValidation"));
+            }
 
             if (searchCriteria.Infants > searchCriteria.Adults)
             {
