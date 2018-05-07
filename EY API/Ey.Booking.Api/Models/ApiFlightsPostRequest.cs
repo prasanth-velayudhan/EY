@@ -56,7 +56,7 @@ namespace Ey.Booking.Api.Models
 
         [JsonProperty("direction")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public string Direction { get; set; }
+        public Direction Direction { get; set; }
 
         [JsonProperty("date")]
         public string Date { get; set; }

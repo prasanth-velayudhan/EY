@@ -31,6 +31,8 @@ namespace Ey.Model.Search
 
         public string Variant { get; set; }
 
+        public string CurrencyCode { get; set; }
+
         //public bool IsOriginMetro { get; set; }
 
         //public bool IsDestMetro { get; set; }        

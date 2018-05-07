@@ -22,7 +22,7 @@ namespace Ey.Model.Results
             this.CheckedBaggageIncludedInFare = new List<IncludedBaggage>();
         }
 
-        public int FareTypeId { get; set; }
+        public string FareTypeId { get; set; }
 
         public string FareBrandId { get; set; }
 

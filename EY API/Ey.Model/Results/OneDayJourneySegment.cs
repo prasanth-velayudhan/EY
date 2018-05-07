@@ -40,7 +40,7 @@ namespace Ey.Model.Results
     [Serializable]
     public class FareBrandInfo
     {
-        public int FareTypeID { get; set; }
+        public string FareTypeID { get; set; }
         public string FareTypeName { get; set; }
         public string CabinType { get; set; }
     }

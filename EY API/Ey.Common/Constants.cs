@@ -144,9 +144,9 @@ namespace Ey.Common
         //        "16A", "16B", "16C", "16D", "16E", "16F", "32C", "32D" 
         //    };
 
-        public static List<string> RestrictedSeats = new List<string> 
-            { 
-                "15A", "15B", "15C", "15D", "15E", "15F", 
+        public static List<string> RestrictedSeats = new List<string>
+            {
+                "15A", "15B", "15C", "15D", "15E", "15F",
                 "16A", "16B", "16C", "16D", "16E", "16F"
             };
 
@@ -229,5 +229,17 @@ namespace Ey.Common
         }
 
         public const int SessionTimeoutDuration = 30;
+
+        public static Dictionary<string, string> FareBrandIds = new Dictionary<string, string>()
+            {
+                {"YB", "Economy Deal"},
+                {"YS", "Economy Saver"},
+                {"YV", "Economy Classic"},
+                {"YF", "Economy Flex"},
+                {"JB", "Business Deal"},
+                {"JS", "Business Saver"},
+                {"JF", "Business Flex"},           
+                {"FI", "First"}
+            };
     }
 }

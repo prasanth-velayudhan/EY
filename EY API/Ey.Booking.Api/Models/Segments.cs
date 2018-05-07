@@ -130,6 +130,6 @@ namespace Ey.Booking.Api.Models
 
     public enum Cabin
     {
-        economy, business
+        economy, business, first
     }
 }

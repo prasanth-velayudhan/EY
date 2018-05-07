@@ -30,14 +30,14 @@ namespace Ey.Booking.Api.Builders
             List<Segments> segments = new List<Segments>();
             if (oneDayResult != null && oneDayResult.Count > 0)
             {
-                currency = oneDayResult[0].CurrentDisplayCurrency;
+                currency = this.searchCriteria.CurrencyCode;
                 for (int i = 0; i < oneDayResult.Count(); ++i)
                 {
                     OneDayJourneySegment segmentItem = oneDayResult[i];
                     Segments segment = new Segments();
                     segment.Origin = segmentItem.Origin;
                     segment.Dest = segmentItem.Destination;
-                    segment.CurrencyCode = segmentItem.CurrentDisplayCurrency;
+                    segment.CurrencyCode = currency;
                     segment.DepartureDate = String.Format("{0:s}", segmentItem.Date);
                     segment.Direction = searchCriteria.Flights[i].FlightDirection.ToLower() == Direction.multiSector.ToString().ToLower() ? Direction.multiSector : searchCriteria.Flights[i].FlightDirection.ToLower() == "inbound" ? Direction.inBound : Direction.outBound;
                     segment.Route = string.Format("{0}_{1}", segment.Origin, segment.Dest);
@@ -52,14 +52,26 @@ namespace Ey.Booking.Api.Builders
                     }
 
                     segment.Flights = BuildFlights(segmentItem, false);
+                    var distinctFareBrands = segment.Flights.SelectMany(x => x.FareTypes).Select(x =>
+                                     new FareBrandInfo()
+                                     {
+                                         FareTypeID = x.FareTypeID,
+                                         FareTypeName = x.FareTypeName,
+                                         CabinType = x.Cabin.ToString()
+
+                                     }
+                                     ).GroupBy(fb => fb.FareTypeID).OrderBy(x => x.Key)
+                                     .Select(g => g.First());
+
+
                     segment.Brands = new List<Brand>();
-                    foreach (var brandInfo in oneDayResult[i].MasterBrandList)
+                    foreach (var brandInfo in distinctFareBrands)
                     {
                         segment.Brands.Add(new Brand
                         {
                             FareTypeID = brandInfo.FareTypeID.ToString(),
-                            Cabin = brandInfo.CabinType.ToUpper() == "BUSINESS" ? Cabin.business : Cabin.economy,
-                            Name = brandInfo.FareTypeName,
+                            Cabin = brandInfo.CabinType.ToUpper() == "BUSINESS" ? Cabin.business : brandInfo.CabinType.ToUpper() == "ECONOMY" ? Cabin.economy : Cabin.first,
+                            Name = Constants.FareBrandIds.Where(x => x.Key == brandInfo.FareTypeName).FirstOrDefault().Value,
                             IncludedServices = BuildBrandIncludeServices(segment.Flights, brandInfo.FareTypeID.ToString())
                         });
                     }
@@ -87,8 +99,17 @@ namespace Ey.Booking.Api.Builders
 
         private Dictionary<IncludeServiceType, string> BuildBrandIncludeServices(IList<Flights> flights, string faretypeId)
         {
-            var fareTypes = flights.SelectMany(x => x.FareTypes).FirstOrDefault(y => (y.IsSoldOut == false && y.FareTypeID == faretypeId));
-            return fareTypes?.IncludedServices;
+            return new Dictionary<IncludeServiceType, string>()
+            {
+                {IncludeServiceType.RFNDELG, "true"},
+                {IncludeServiceType.CHDTELG, "true"},
+                {IncludeServiceType.UPGRELG, "true"},
+                {IncludeServiceType.PRCHKIN, "true"},
+                {IncludeServiceType.CHKDBAG, "30KG"},
+                {IncludeServiceType.MILEARN, "500"},
+                {IncludeServiceType.CHDTFEE, "AED 100"},
+                {IncludeServiceType.RFNDFEE, "AED 100"},
+            };
         }
 
         public List<Flights> BuildFlights(OneDayJourneySegment segmentItem, bool IsRerpice)
@@ -138,7 +159,7 @@ namespace Ey.Booking.Api.Builders
                     foreach (var fType in fTypes)
                     {
                         FareTypes fareType = new FareTypes();
-                        fareType.FareTypeID = Convert.ToString(fType.Key.FareTypeId);
+                        fareType.FareTypeID = fType.FirstOrDefault().FareTypeName;
                         fareType.FareTypeName = fType.FirstOrDefault().FareTypeName;
                         fareType.ContainsCircularFlight = IsCircularFlight(flightItem).Value;
                         fareType.ContainsConnectionFlight = IsConnectionFlight(flightItem).Value;
@@ -152,7 +173,7 @@ namespace Ey.Booking.Api.Builders
                         fareType.LfId = Convert.ToString(flightItem.LFID);
                         fareType.PfIds = GetPhysicalFlightIds(flightItem, fType.FirstOrDefault().Bookingcodes, fType.FirstOrDefault().Cabin);
                         fareType.Route = String.Format("{0}_{1}", flightItem.Origin, flightItem.Destination);
-                        fareType.Cabin = fType.FirstOrDefault().Cabin.ToUpper() == "BUSINESS" ? Cabin.business : Cabin.economy;
+                        fareType.Cabin = (fType.FirstOrDefault().FareTypeName.IndexOf('J') != -1 ? Cabin.business : fType.FirstOrDefault().FareTypeName.IndexOf('Y') != -1 ? Cabin.economy : fType.FirstOrDefault().FareTypeName.IndexOf('F') != -1 ? Cabin.first : Cabin.first);
                         if (fType.FirstOrDefault(x => x.PassengerTypeId == Enums.PassengerTypes.Adult) != null)
                         {
                             fareType.IncludedServices = BuildIncludedServices(fType.FirstOrDefault(a => a.PassengerTypeId == Enums.PassengerTypes.Adult) ?? fType.FirstOrDefault());
@@ -637,7 +658,7 @@ namespace Ey.Booking.Api.Builders
                         foreach (var days in segmentItem.DayLowestFares)
                         {
                             MultiDayflights segment = new MultiDayflights();
-                            segment.CurrencyCode = segmentItem.CurrentDisplayCurrency;
+                            segment.CurrencyCode = currency;
                             segment.DepartureDate = String.Format("{0:s}", days.Date);
                             segment.LowestAdultFarePerPax = CurrencyHelper.ToString(segmentItem.CurrentDisplayCurrency, days.WebFareAmount);
                             segment.IsSoldOut = days.isSoldOut;

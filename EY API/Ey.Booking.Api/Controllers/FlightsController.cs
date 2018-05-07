@@ -46,7 +46,7 @@ namespace Ey.Booking.Api.Controllers
                         DepartureDate = Convert.ToDateTime(criteria.Date),
                         Origin = criteria.Origin,
                         Destination = criteria.Dest,
-                        FlightDirection = Convert.ToString(criteria.Direction ?? "").ToLower()
+                        FlightDirection = Convert.ToString(criteria.Direction).ToLower()
                     });
                 }
                 var searchCriteria = new Model.Search.SearchCriteria
@@ -57,7 +57,9 @@ namespace Ey.Booking.Api.Controllers
                     Flights = flightCriteria,
                     PromoCode = requestContent.PromoCode,
                     IsFlexible = false,
-                    CabinType = requestContent.CabinClass ?? ""
+                    CabinType = requestContent.CabinClass ?? "",
+                    CurrencyCode = "AED"
+
                 };
 
                 List<Notification> validationMessages = ValidateRequest(searchCriteria);

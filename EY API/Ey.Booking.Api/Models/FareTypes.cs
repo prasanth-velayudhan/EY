@@ -323,7 +323,15 @@ namespace Ey.Booking.Api.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public enum IncludeServiceType
     {
-
+        RFNDELG,
+        CHDTELG,
+        UPGRELG,
+        PRCHKIN,
+        PRFSEAT,
+        CHKDBAG,
+        MILEARN,
+        CHDTFEE,
+        RFNDFEE,
         [EnumMember(Value = "handBaggage")]
         HandBaggage,
         [EnumMember(Value = "checkinBaggage")]

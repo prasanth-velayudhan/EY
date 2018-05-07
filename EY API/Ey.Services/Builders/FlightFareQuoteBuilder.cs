@@ -244,6 +244,7 @@ namespace Ey.Services.Builders
                      {
                          PaxId = (++id).ToString(),
                          FareBrandId = fare.AirItineraryPricingInfo.BrandID,
+                         FareTypeId = fare.AirItineraryPricingInfo.BrandID,
                          FareTypeName = fare.AirItineraryPricingInfo.BrandID,
                          FareAmount = pax.PassengerFare != null && pax.PassengerFare.TotalFare != null ? pax.PassengerFare.TotalFare.Amount : 0,
                          WebFareAmount = pax.PassengerFare != null && pax.PassengerFare.TotalFare != null ? pax.PassengerFare.TotalFare.Amount : 0,
