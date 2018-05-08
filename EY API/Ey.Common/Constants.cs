@@ -244,6 +244,7 @@ namespace Ey.Common
 
         public static Dictionary<string, string> AirportCountryCodes = new Dictionary<string, string>()
             {
+            {"AUH","AE"},
                 {"KBL","AF"},
 {"KDH","AF"},
 {"MZR","AF"},
@@ -536,6 +537,7 @@ namespace Ey.Common
 {"ASM","USD"},
 {"ATH","USD"},
 {"ATZ","EGP"},
+{"AUH","AED"},
 {"AWZ","USD"},
 {"AZI","AED"},
 {"BAH","BHD"},

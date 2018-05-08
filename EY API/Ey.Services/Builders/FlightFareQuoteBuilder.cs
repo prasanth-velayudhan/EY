@@ -34,7 +34,7 @@ namespace Ey.Services.Builders
         public OTA_AirLowFareSearchRQ GetFlightFareSearchRequest(SearchCriteria searchCriteria)
         {
             string poc = searchCriteria != null && searchCriteria.Flights.Any() ? searchCriteria.Flights.First().Origin : "";
-            string defaultCurrency = Common.Constants.AirportCurrencyCodes.ContainsKey(poc) ? Common.Constants.AirportCountryCodes[poc] : ConfigurationManager.AppSettings["DefaultCurrencyCode"];
+            string defaultCurrency = Common.Constants.AirportCurrencyCodes.ContainsKey(poc) ? Common.Constants.AirportCurrencyCodes[poc] : ConfigurationManager.AppSettings["DefaultCurrencyCode"];
             return new OTA_AirLowFareSearchRQ()
             {
                 Version = "4.1.0",
