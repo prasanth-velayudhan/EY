@@ -25,7 +25,7 @@ namespace Ey.Booking.Api.Builders
             List<Segments> segments = new List<Segments>();
             if (response.OneDayItineraries != null && response.OneDayItineraries.Count > 0)
             {
-                currency = this.searchCriteria.CurrencyCode;
+                currency = response.OneDayItineraries.First().CurrentDisplayCurrency;
                 for (int i = 0; i < response.OneDayItineraries.Count(); ++i)
                 {
                     OneDayJourneySegment segmentItem = response.OneDayItineraries[i];

@@ -47,7 +47,7 @@ namespace Ey.Services
             binding.MaxBufferPoolSize = 2147483647;
             SSSAdvShopPortTypeClient client = new SSSAdvShopPortTypeClient(binding, new EndpointAddress(new Uri(ConfigurationManager.AppSettings["FareQuotesEndpointUrl"])));
             var os = client.SSSAdvShopRQ(ref msgHeader, ref secHeader, frReq);
-            return fltServiceRqRsBuilder.BuildResponse(os);
+            return fltServiceRqRsBuilder.BuildResponse(os, frReq.TravelerInfoSummary.PriceRequestInformation.CurrencyCode);
         }
         public async Task<Ey.Model.Results.FlightResults> GetFlightFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
         {

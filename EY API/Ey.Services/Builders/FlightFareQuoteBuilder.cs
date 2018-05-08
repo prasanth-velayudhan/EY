@@ -132,7 +132,7 @@ namespace Ey.Services.Builders
             }
             return paxInfo;
         }
-        public FlightResults BuildResponse(Ey.Services.SabreFareQuote.OTA_AirLowFareSearchRS serviceRes)
+        public FlightResults BuildResponse(Ey.Services.SabreFareQuote.OTA_AirLowFareSearchRS serviceRes, string currencyCode)
         {
             FlightResults response = null;
             if (serviceRes != null && serviceRes.Items != null && serviceRes.Items.Any())
@@ -153,6 +153,14 @@ namespace Ey.Services.Builders
                 }
             }
 
+            if(response != null && response.MultiDayItineraries != null && response.MultiDayItineraries.Any())
+            {
+                response.MultiDayItineraries.First().CurrentDisplayCurrency = currencyCode;
+            }
+            if (response != null && response.OneDayItineraries != null && response.OneDayItineraries.Any())
+            {
+                response.OneDayItineraries.First().CurrentDisplayCurrency = currencyCode;
+            }
             return response;
         }
 
