@@ -752,7 +752,7 @@ namespace Ey.Booking.Api.Builders
                     }
                 }
             }
-            return segments;
+            return segments.OrderBy(a => a.DepartureDate).ToList();
         }
 
         private List<DayLowestFare> BuildLowestFareList(MultipleDayJourneySegment segmentItem, DateTime searchedDate, int noOfDays)
