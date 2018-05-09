@@ -285,11 +285,11 @@ namespace Ey.Services.Builders
                 multiSegs.AddRange(multiDayWayItineraries.Where(a => a.PricedItinerary != null && a.PricedItinerary.Any()).SelectMany(b => GetMultiDaySegment(b.RPH, b.PricedItinerary)).ToList());
             }
 
-            if (multiDayWayItineraries.Any(a => a.TPA_Extensions != null && a.TPA_Extensions.Any(b => !string.IsNullOrEmpty(b.Message) && b.Message == "NO SCHEDULES")))
+            if (multiDayWayItineraries.Any(a => a.TPA_Extensions != null))
             {
-                foreach (var p in multiDayWayItineraries.Where(a => a.TPA_Extensions != null && a.TPA_Extensions.Any(b => !string.IsNullOrEmpty(b.Message) && b.Message == "NO SCHEDULES")))
+                foreach (var p in multiDayWayItineraries.Where(a => a.TPA_Extensions != null))
                 {
-                    multiSegs.AddRange(p.TPA_Extensions.Where(a => a.Message == "NO SCHEDULES").Select(emptyFlt => new MultipleDayJourneySegment()
+                    multiSegs.AddRange(p.TPA_Extensions.Select(emptyFlt => new MultipleDayJourneySegment()
                     {
                         Origin = emptyFlt.DepartureAirport,
                         Destination = emptyFlt.ArrivalAirport,
