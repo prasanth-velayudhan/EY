@@ -34,7 +34,8 @@ namespace Ey.Services.Builders
         public OTA_AirLowFareSearchRQ GetFlightFareSearchRequest(SearchCriteria searchCriteria)
         {
             string poc = searchCriteria != null && searchCriteria.Flights.Any() ? searchCriteria.Flights.First().Origin : "";
-            string defaultCurrency = Common.Constants.AirportCurrencyCodes.ContainsKey(poc) ? Common.Constants.AirportCurrencyCodes[poc] : ConfigurationManager.AppSettings["DefaultCurrencyCode"];
+            string currencyCode = !string.IsNullOrEmpty(searchCriteria.CurrencyCode)? searchCriteria.CurrencyCode.Trim() : 
+                Common.Constants.AirportCurrencyCodes.ContainsKey(poc) ? Common.Constants.AirportCurrencyCodes[poc] : ConfigurationManager.AppSettings["DefaultCurrencyCode"];
             return new OTA_AirLowFareSearchRQ()
             {
                 Version = "4.1.0",
@@ -82,7 +83,7 @@ namespace Ey.Services.Builders
                         FareQualifier = "false",
                         NegotiatedFaresOnly = false,
                         Reprice = false,
-                        CurrencyCode = string.IsNullOrEmpty(defaultCurrency) ? "AED" : defaultCurrency.ToUpper()
+                        CurrencyCode = string.IsNullOrEmpty(currencyCode) ? "AED" : currencyCode.ToUpper()
                     }
                 },
                 TPA_Extensions = new OTA_AirLowFareSearchRQTPA_Extensions()

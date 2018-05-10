@@ -22,6 +22,10 @@ namespace Ey.Booking.Api.Models
         public string LfId { get; set; }
 
         [Required]
+        [JsonProperty("ODId")]
+        public string oDId { get { return this.LfId; } }
+
+        [Required]
         [JsonProperty("departureDate")]
         public string DepartureDate { get; set; }
 
@@ -29,13 +33,13 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("isAvailabile")]
         public bool IsAvailabile { get; set; }
 
-        [Required]
-        [JsonProperty("isInterline")]
-        public bool IsInterLine { get; set; }
+        //[Required]
+        //[JsonProperty("isInterline")]
+        //public bool IsInterLine { get; set; }
 
-        [Required]
-        [JsonProperty("isCodeShare")]
-        public bool IsCodeShare { get; set; }
+        //[Required]
+        //[JsonProperty("isCodeShare")]
+        //public bool IsCodeShare { get; set; }
 
         [Required]
         [JsonProperty("stops")]
@@ -65,8 +69,8 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("flightNum")]
         public string FlightNum { get; set; }
 
-        [JsonProperty("flightGroupID")]
-        public string FlightGroupID { get; set; }
+        //[JsonProperty("flightGroupID")]
+        //public string FlightGroupID { get; set; }
     } // end class
 
     public partial class Stops

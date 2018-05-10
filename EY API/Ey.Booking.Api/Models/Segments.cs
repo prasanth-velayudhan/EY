@@ -31,17 +31,17 @@ namespace Ey.Booking.Api.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public Direction Direction { get; set; }
 
-        [Required]
-        [JsonProperty("lowestAdultFarePerPax")]
-        public string LowestAdultFarePerPax { get; set; }
+        //[Required]
+        //[JsonProperty("lowestAdultFarePerPax")]
+        //public string LowestAdultFarePerPax { get; set; }
 
-        [Required]
-        [JsonProperty("lowestAdultFareTaxSumPerPax")]
-        public string LowestAdultFareTaxSumPerPax { get; set; }
+        //[Required]
+        //[JsonProperty("lowestAdultFareTaxSumPerPax")]
+        //public string LowestAdultFareTaxSumPerPax { get; set; }
 
-        [Required]
-        [JsonProperty("lowestAdultFareNoTaxUnformatted")]
-        public string LowestAdultFareNoTaxUnformatted { get; set; }
+        //[Required]
+        //[JsonProperty("lowestAdultFareNoTaxUnformatted")]
+        //public string LowestAdultFareNoTaxUnformatted { get; set; }
 
         [Required]
         [JsonProperty("currencyCode")]
@@ -76,13 +76,13 @@ namespace Ey.Booking.Api.Models
         public IList<Notification> Notifications { get; set; }
 
 
-        [Required]
-        [JsonProperty("isInterline")]
-        public bool IsInterline { get; set; }
+        //[Required]
+        //[JsonProperty("isInterline")]
+        //public bool IsInterline { get; set; }
 
-        [Required]
-        [JsonProperty("isCodeShare")]
-        public bool IsCodeShare { get; set; }
+        //[Required]
+        //[JsonProperty("isCodeShare")]
+        //public bool IsCodeShare { get; set; }
        
     } // end class
 

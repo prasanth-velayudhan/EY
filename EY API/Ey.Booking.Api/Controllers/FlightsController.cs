@@ -59,8 +59,7 @@ namespace Ey.Booking.Api.Controllers
                     PromoCode = requestContent.PromoCode,
                     IsFlexible = false,
                     CabinType = requestContent.CabinClass ?? "",
-                    CurrencyCode = "AED"
-
+                    CurrencyCode = requestContent.CurrencyCode
                 };
 
                 List<Notification> validationMessages = ValidateRequest(searchCriteria);
@@ -92,12 +91,12 @@ namespace Ey.Booking.Api.Controllers
 
                 return Request.CreateResponse(statusCode, new ApiFlightsPostOkResponse()
                 {
-                    ServerDateTimeUTC = String.Format("{0:s}", DateTime.UtcNow),
-                    SessionDuration = Convert.ToString(Common.Constants.SessionTimeoutDuration),
-                    Notifications = validationMessages,
+                    //ServerDateTimeUTC = String.Format("{0:s}", DateTime.UtcNow),
+                    //SessionDuration = Convert.ToString(Common.Constants.SessionTimeoutDuration),
+                    //Notifications = validationMessages,
                     Segments = segments,
-                    SessionExpiryGMT = sessionExpGmt,
-                    SessionRemainingTime = _securityToken.GetRemainingSessionDuration(securityData)
+                    //SessionExpiryGMT = sessionExpGmt,
+                    //SessionRemainingTime = _securityToken.GetRemainingSessionDuration(securityData)
                 });
             }
             catch (Exception ex)
