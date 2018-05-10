@@ -59,8 +59,7 @@ namespace Ey.Booking.Api.Controllers
                     PromoCode = requestContent.PromoCode,
                     IsFlexible = false,
                     CabinType = requestContent.CabinClass ?? "",
-                    CurrencyCode = "AED"
-
+                    CurrencyCode = requestContent.CurrencyCode
                 };
 
                 List<Notification> validationMessages = ValidateRequest(searchCriteria);

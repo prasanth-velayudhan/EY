@@ -30,6 +30,9 @@ namespace Ey.Booking.Api.Models
         [Required]
         [JsonProperty("paxInfo")]
         public Paxinfo PaxInfo { get; set; }
+        
+        [JsonProperty("currencyCode")]
+        public string CurrencyCode { get; set; }
     }
 
     public class Paxinfo
