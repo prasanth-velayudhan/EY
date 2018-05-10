@@ -20,11 +20,9 @@ using Ey.Business;
 
 namespace Ey.Booking.Api.ActionFilters
 {
-
     public class SecurityHandler : DelegatingHandler
     {
         private readonly ISecurityTokenTask _securityTokenTask;
-
 
         private static readonly ILog Logger = LogProvider.GetCurrentClassLogger();
         public SecurityHandler(ISecurityTokenTask securityTokenTask)
@@ -146,10 +144,8 @@ namespace Ey.Booking.Api.ActionFilters
             }
             catch 
             {
-
                 return string.Empty;
             }
-
         }
     }
 }

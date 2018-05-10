@@ -13,16 +13,12 @@ using Ey.Common.Logging;
 namespace Ey.Booking.Api.ActionFilters
 {
     class RequireSessionPersistanceAttribute : ActionFilterAttribute
-    {
-       
-
+    {       
         public bool WaitForPersistancce { get; set; }
 
         public override async Task OnActionExecutingAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken)
         {
-
-
            var session = actionContext.Request.GetDependencyScope()
                 .GetService(typeof(ISessionStorage)) as ISessionStorage;
 
@@ -32,15 +28,13 @@ namespace Ey.Booking.Api.ActionFilters
               
             }
             await base.OnActionExecutingAsync(actionContext, cancellationToken);
-
         }
 
 
 
         public override async Task OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext,
             CancellationToken cancellationToken)
-        {
-           
+        {           
             if (actionExecutedContext.Exception == null)
             {
                 var session = actionExecutedContext.Request.GetDependencyScope()

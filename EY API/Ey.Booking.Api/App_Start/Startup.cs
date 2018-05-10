@@ -31,25 +31,12 @@ namespace Ey.Booking.Api
 {
     public class Startup
     {
-
-
-
         private static IList<IRefreshable> _refreshables;
-
-        //private static IAirportService _airportTasks;
-        //private static ICountryService _countryTasks;
-        //private static IRouteMessageService _routeMessageTasks;
-        //private static IPaymentTypeService _paymentTypeTasks;
-        //private static IPaymentSettingsService _paymentSettingsTasks;
-        //private static IApplicationSettingsTasks _applicationSettingsTasks;
 
         private static ISecurityService _SecurityServices;
 
         public void Configuration(IAppBuilder app)
-        {
-
-
-          
+        {          
             var context = new OwinContext(app.Properties);
             var token = context.Get<CancellationToken>("host.OnAppDisposing");
             if (token != CancellationToken.None)
@@ -58,31 +45,12 @@ namespace Ey.Booking.Api
             }
             // setup http configuration
             IContainer container = IoC.Initialize();
-            //  container.AssertConfigurationIsValid();//
-          //  Debug.WriteLine(container.WhatDoIHave());
-
             HttpConfiguration httpConfiguration = new HttpConfiguration();
             httpConfiguration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
             ConfigureLog();
-
-            //_airportTasks = container.GetInstance<IAirportService>();
-            //_countryTasks = container.GetInstance<ICountryService>();
-            //_routeMessageTasks = container.GetInstance<IRouteMessageService>();
-            //_paymentTypeTasks = container.GetInstance<IPaymentTypeService>();
-            //_paymentSettingsTasks = container.GetInstance<IPaymentSettingsService>();
-            //_applicationSettingsTasks = container.GetInstance<IApplicationSettingsTasks>();
-
-
-
             _SecurityServices = container.GetInstance<ISecurityService>();
-
-            httpConfiguration.MessageHandlers.Add(new SecurityHandler(httpConfiguration.DependencyResolver.GetService(typeof(ISecurityTokenTask))
-   as ISecurityTokenTask));
-
-
-
+            httpConfiguration.MessageHandlers.Add(new SecurityHandler(httpConfiguration.DependencyResolver.GetService(typeof(ISecurityTokenTask)) as ISecurityTokenTask));
             httpConfiguration.MessageHandlers.Add(new LogRequestAndResponseHandler());
-
             WebApiConfig.Register(httpConfiguration);
             var policy = new CorsPolicy
             {
@@ -115,41 +83,7 @@ namespace Ey.Booking.Api
                 }
             });
 
-            app.UseWebApi(httpConfiguration);
-
-            var refreshCache = ConfigurationManager.AppSettings["refreshCacheOnStartup"];
-            var parseResult = false;
-            if (bool.TryParse(refreshCache, out parseResult) & parseResult)
-            {
-                //For static cahce
-                // Set-up a background thread to reload globally cached data whenever the configured interval period expires.
-                _refreshables = new List<IRefreshable>
-                {
-                    
-                    //container.GetInstance<IAirportService>(),
-                    //container.GetInstance<IRegionsService>(),
-                    //container.GetInstance<IPassengerMessagesService>(),
-                    //container.GetInstance<ICountryService>(),
-                    //container.GetInstance<ICityService>(),
-                    ////container.GetInstance<IApplicationSettingsTasks>(),
-                    //container.GetInstance<IPaymentTypeService>(),
-                    //container.GetInstance<IPaymentSettingsService>(),
-                    //container.GetInstance<CodeTypeService>(),
-                    //container.GetInstance<IExceptionResourceManager>(),
-                    ////container.GetInstance<IFareBasisListCache>(),
-                    //container.GetInstance<IBaggageService>(),
-                    //container.GetInstance<ISeatingService>(),
-                    //container.GetInstance<ICurrencyService>(),
-                    //container.GetInstance<IMpesaSettingService>(),
-                    //container.GetInstance<IRouteMessageService>(),
-                    //container.GetInstance<IInterlineAgrementService>()
-
-                };
-                // Call the refresh for the first time on the web thread so everythiong is loaded & no errors
-                RefreshGlobalCache(_refreshables);
-            }
-            //End static cache
-
+            app.UseWebApi(httpConfiguration);            
         }
 
         private static void ConfigureLog()
@@ -174,28 +108,7 @@ namespace Ey.Booking.Api
             context.Get<TextWriter>("host.TraceOutput").WriteLine(
                 "Current IIS event: " + currentIntegratedpipelineStage
                 + " Msg: " + msg);
-        }
-
-
-
-
-        private static void RefreshGlobalCache(object stateInfo)
-        {
-            try
-            {
-                var refreshables = (IList<IRefreshable>)stateInfo;
-
-                foreach (var cache in refreshables)
-                {
-                    cache.Refresh();
-                }
-            }
-            catch (System.Exception ex)
-            {
-                //log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-                // Log.Error("Error refreshing global cache", ex);
-            }
-        }
+        }        
     }
 
 }

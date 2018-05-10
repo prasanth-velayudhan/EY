@@ -39,12 +39,12 @@ namespace Ey.Booking.Api.Builders
 
                     Dictionary<string, decimal> lowestAdultFares = GetLowestAdultFarePerPax(segmentItem);
 
-                    if (lowestAdultFares.ContainsKey("lowestAdultFarePerPax"))
-                    {
-                        segment.LowestAdultFarePerPax = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultFarePerPax"]);
-                        segment.LowestAdultFareTaxSumPerPax = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultTaxPerPax"]);
-                        segment.LowestAdultFareNoTaxUnformatted = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultBaseFarePerPax"]);
-                    }
+                    //if (lowestAdultFares.ContainsKey("lowestAdultFarePerPax"))
+                    //{
+                    //    segment.LowestAdultFarePerPax = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultFarePerPax"]);
+                    //    segment.LowestAdultFareTaxSumPerPax = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultTaxPerPax"]);
+                    //    segment.LowestAdultFareNoTaxUnformatted = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultBaseFarePerPax"]);
+                    //}
 
                     segment.Flights = BuildFlights(segmentItem, false);
                     var distinctFareBrands = segment.Flights.SelectMany(x => x.FareTypes).Select(x =>
@@ -219,12 +219,12 @@ namespace Ey.Booking.Api.Builders
                     else
                         flight.TotalDuration = string.Format("{0:hh}:{1:mm}", flightItem.Duration, flightItem.Duration);
                     flight.IsAvailabile = flightItem.FlightFares.Any(x => !x.IsSoldOut(searchCriteria.Adults + searchCriteria.Children));
-                    flight.IsInterLine = flightItem.IsInterLine;
-                    flight.IsCodeShare = flightItem.IsCodeShare;
+                    //flight.IsInterLine = flightItem.IsInterLine;
+                    //flight.IsCodeShare = flightItem.IsCodeShare;
                     flight.Legs = BuildLegs(flightItem);
                     flight.FareTypes = BuildFares(flightItem, IsRerpice);
                     flight.FlightNum = flightItem.FlightNum;
-                    flight.FlightGroupID = flightItem.FlightGroupID;
+                    //flight.FlightGroupID = flightItem.FlightGroupID;
                     flights.Add(flight);
                 }
             }
@@ -248,27 +248,27 @@ namespace Ey.Booking.Api.Builders
                         fareType.ContainsConnectionFlight = IsConnectionFlight(flightItem).Value;
                         fareType.FareInformation = BuildFlightFareInformation(fType, IsRerpice);
                         fareType.Fare = BuildFlightFare(fareType.FareInformation);
-                        fareType.Fare.SolutionId = Convert.ToString(fType.Key.SolutionID);
-                        fareType.Fare.Combinables = BuildCombinableList(fType.Key.SolutionID);
+                        //fareType.Fare.SolutionId = Convert.ToString(fType.Key.SolutionID);
+                        //fareType.Fare.Combinables = BuildCombinableList(fType.Key.SolutionID);
                         fareType.FareCarrier = fType.FirstOrDefault().FareCarrier;
-                        fareType.TicketDesignator = fType.FirstOrDefault().TicketDesignator;
-                        fareType.HashCode = fType.FirstOrDefault().HashCode;
+                        //fareType.TicketDesignator = fType.FirstOrDefault().TicketDesignator;
+                        //fareType.HashCode = fType.FirstOrDefault().HashCode;
                         fareType.LfId = Convert.ToString(flightItem.LFID);
-                        fareType.PfIds = GetPhysicalFlightIds(flightItem, fType.FirstOrDefault().Bookingcodes, fType.FirstOrDefault().Cabin);
+                        //fareType.PfIds = GetPhysicalFlightIds(flightItem, fType.FirstOrDefault().Bookingcodes, fType.FirstOrDefault().Cabin);
                         fareType.Route = String.Format("{0}_{1}", flightItem.Origin, flightItem.Destination);
                         fareType.Cabin = (fType.FirstOrDefault().FareTypeName.IndexOf('J') != -1 ? Cabin.business : fType.FirstOrDefault().FareTypeName.IndexOf('Y') != -1 ? Cabin.economy : fType.FirstOrDefault().FareTypeName.IndexOf('F') != -1 ? Cabin.first : Cabin.first);
-                        if (fType.FirstOrDefault(x => x.PassengerTypeId == Enums.PassengerTypes.Adult) != null)
-                        {
-                            fareType.IncludedServices = BuildIncludedServices(fType.FirstOrDefault(a => a.PassengerTypeId == Enums.PassengerTypes.Adult) ?? fType.FirstOrDefault());
-                        }
-                        else if (IsRerpice && fType.FirstOrDefault(x => x.PassengerTypeId == Enums.PassengerTypes.Child) != null)
-                        {
-                            fareType.IncludedServices = BuildIncludedServices(fType.FirstOrDefault(a => a.PassengerTypeId == Enums.PassengerTypes.Child) ?? fType.FirstOrDefault());
-                        }
+                        //if (fType.FirstOrDefault(x => x.PassengerTypeId == Enums.PassengerTypes.Adult) != null)
+                        //{
+                        //    fareType.IncludedServices = BuildIncludedServices(fType.FirstOrDefault(a => a.PassengerTypeId == Enums.PassengerTypes.Adult) ?? fType.FirstOrDefault());
+                        //}
+                        //else if (IsRerpice && fType.FirstOrDefault(x => x.PassengerTypeId == Enums.PassengerTypes.Child) != null)
+                        //{
+                        //    fareType.IncludedServices = BuildIncludedServices(fType.FirstOrDefault(a => a.PassengerTypeId == Enums.PassengerTypes.Child) ?? fType.FirstOrDefault());
+                        //}
                         fareType.IsSoldOut = fType.FirstOrDefault().IsSoldOut();
                         fareType.Fare.IsPromoFare = fType.FirstOrDefault().IsPromoFare;
-                        fareType.Fare.IsPromoCodeApplied = fType.FirstOrDefault().IsPromoCodeApplied;
-                        fareType.Fare.IsStopOverFare = (fType.FirstOrDefault(a => a.PassengerTypeId == Enums.PassengerTypes.Adult) ?? fType.FirstOrDefault()).IsStopOverFare;
+                        //fareType.Fare.IsPromoCodeApplied = fType.FirstOrDefault().IsPromoCodeApplied;
+                        //fareType.Fare.IsStopOverFare = (fType.FirstOrDefault(a => a.PassengerTypeId == Enums.PassengerTypes.Adult) ?? fType.FirstOrDefault()).IsStopOverFare;
                         fareType.SeatsLeft = fType.FirstOrDefault().SeatsAvailable;
                         //if (fareType.Cabin == Cabin.business && fType.FirstOrDefault().SeatsAvailable <= _settingsTasks.SeatThresholdBusiness)
                         //{
@@ -297,70 +297,7 @@ namespace Ey.Booking.Api.Builders
 
             return fareTypes.OrderBy(a => a.OrderId).ToList();
         }
-
-        private Dictionary<IncludeServiceType, string> BuildIncludedServices(FlightFare fType)
-        {
-            var includes = fType.CheckedBaggageIncludedInFare;
-
-            var retIncludeServices = new Dictionary<IncludeServiceType, string>();
-            foreach (var include in includes)
-            {
-                switch (include.Type)
-                {
-                    case Constants.SSRBaggage:
-                        retIncludeServices.Add(
-                            IsHandBaggageCode(include.Code)
-                                ? IncludeServiceType.HandBaggage
-                                : IncludeServiceType.CheckinBaggage, include.Code);
-
-                        break;
-                    case Constants.SSRIFE:
-                        retIncludeServices.Add(IncludeServiceType.InflighEntertainment, include.Code);
-                        break;
-                    case Constants.SSRMeals:
-                        retIncludeServices.Add(IncludeServiceType.Meals, include.Code);
-                        break;
-                    case Constants.SSRSeat:
-                        retIncludeServices.Add(IncludeServiceType.SeatSelection, include.Code);
-                        break;
-
-                }
-            }
-            if (fType.ApplicableTaxDetails == null) return retIncludeServices;
-            if (fType.ApplicableTaxDetails.Any(x => x.TaxCode == Constants.FreeSeatingCode) && !retIncludeServices.Any(x => x.Key == IncludeServiceType.SeatSelection))
-            {
-                retIncludeServices.Add(IncludeServiceType.SeatSelection, Constants.FreeSeatingCode);
-            }
-            if (fType.ApplicableTaxDetails.Any(x => x.TaxCode == Constants.FreeMealCode) && !retIncludeServices.Any(x => x.Key == IncludeServiceType.Meals))
-            {
-                retIncludeServices.Add(IncludeServiceType.Meals, Constants.FreeMealCode);
-            }
-            if (fType.ApplicableTaxDetails.Any(x => x.TaxCode == Constants.FreeIFECode) && !retIncludeServices.Any(x => x.Key == IncludeServiceType.InflighEntertainment))
-            {
-                retIncludeServices.Add(IncludeServiceType.InflighEntertainment, Constants.FreeIFECode);
-            }
-            if (fType.ApplicableTaxDetails.Any(x => x.TaxCode == Constants.IncludedIFECodeForBusiness) && !retIncludeServices.Any(x => x.Key == IncludeServiceType.InflighEntertainment))
-            {
-                retIncludeServices.Add(IncludeServiceType.InflighEntertainment, Constants.IncludedIFECodeForBusiness);
-            }
-            if (fType.ApplicableTaxDetails.Any(x => x.TaxCode == Constants.IncludedFreeMealCodeForBusiness) && !retIncludeServices.Any(x => x.Key == IncludeServiceType.Meals))
-            {
-                retIncludeServices.Add(IncludeServiceType.Meals, Constants.IncludedFreeMealCodeForBusiness);
-            }
-            if (fType.ApplicableTaxDetails.Any(x => x.TaxCode == Constants.IncludedFreeSeatCodeForBusiness) && !retIncludeServices.Any(x => x.Key == IncludeServiceType.SeatSelection))
-            {
-                retIncludeServices.Add(IncludeServiceType.SeatSelection, Constants.IncludedFreeSeatCodeForBusiness);
-            }
-
-            return retIncludeServices;
-        }
-
-        private bool IsHandBaggageCode(string code)
-        {
-
-            return Constants.IncludedHandBaggageCodes.Contains(code);
-        }
-
+        
         public List<Legs> BuildLegs(Flight flightItem)
         {
             List<Legs> legs = new List<Legs>();
@@ -434,17 +371,7 @@ namespace Ey.Booking.Api.Builders
             }
             return stops;
         }
-
-        private IList<string> BuildCombinableList(int solutionID)
-        {
-            //var combinableList = this.combinablesolutions;
-            //if (combinableList.Any(x => x.SolutionId == solutionID.ToString()))
-            //{
-            //    return combinableList.First(x => x.SolutionId == solutionID.ToString()).Combinables;
-            //}
-            return null;
-        }
-
+                
         private FareInformation BuildFlightFareInformation<T>(IGrouping<T, FlightFare> fType, bool isReprice)
         {
             FareInformation fareInformation = new FareInformation();
@@ -463,17 +390,10 @@ namespace Ey.Booking.Api.Builders
                         adultFare.FareBasisCode = adulFareInfo.First().FareBasisCode;
                         adultFare.FareClass = adulFareInfo.First().FareClass;
                         adultFare.AdultFarePerPax = CurrencyHelper.ToString(currency, adulFareInfo.First().WebFareAmount);
-                        adultFare.ChangeCost = CurrencyHelper.ToString(currency, adulFareInfo.First().ChangeCost);
                         adultFare.BaseAdultFarePerPax = CurrencyHelper.ToString(currency, adulFareInfo.First().DisplayAmountNoTaxes).Replace(",", "");
                         adultFare.DiscountPerPax = CurrencyHelper.ToString(currency, adulFareInfo.First().Discount);
                         adultFare.PaxCount = searchCriteria.Adults;
                         adultFare.TaxPerPax = CurrencyHelper.ToString(currency, adulFareInfo.First().Taxes);
-                        //adultFare.IncludedExtas = BuildIncludedExtras(adulFareInfo.First().CheckedBaggageIncludedInFare);
-                        //adultFare.ApplicableTaxes = BuildIncludedApplicableTaxes(adulFareInfo.First().ApplicableTaxDetails);
-                        //adultFare.PointsEarned = BuildPointsEarned(adulFareInfo.First().AccrualPoints);
-                        adultFare.RuleName = adulFareInfo.First().RuleId;
-                        adultFare.RuleValue = CurrencyHelper.ToString(currency, adulFareInfo.First().OriginalFare);
-                        //faresForConversion.Add(adultFare.BaseAdultFarePerPax);
                         AdultFares.Add(adultFare);
                     }
                     fareInformation.AdultFares = AdultFares;
@@ -487,7 +407,6 @@ namespace Ey.Booking.Api.Builders
                     {
                         ChildFares childFare = new ChildFares();
                         childFare.FareId = Convert.ToString(childFareInfo.First().FareId);
-                        childFare.ChangeCost = CurrencyHelper.ToString(currency, childFareInfo.First().ChangeCost);
                         childFare.FareBasisCode = childFareInfo.First().FareBasisCode;
                         childFare.FareClass = childFareInfo.First().FareClass;
                         childFare.ChildFarePerPax = CurrencyHelper.ToString(currency, childFareInfo.First().WebFareAmount);
@@ -495,11 +414,6 @@ namespace Ey.Booking.Api.Builders
                         childFare.DiscountPerPax = CurrencyHelper.ToString(currency, childFareInfo.First().Discount);
                         childFare.PaxCount = searchCriteria.Children;
                         childFare.TaxPerPax = CurrencyHelper.ToString(currency, childFareInfo.First().Taxes);
-                        //childFare.IncludedExtas = BuildIncludedExtras(childFareInfo.First().CheckedBaggageIncludedInFare);
-                        //childFare.ApplicableTaxes = BuildIncludedApplicableTaxes(childFareInfo.First().ApplicableTaxDetails);
-                        childFare.RuleName = childFareInfo.First().RuleId;
-                        childFare.RuleValue = CurrencyHelper.ToString(currency, childFareInfo.First().OriginalFare);
-                        //faresForConversion.Add(childFare.BaseChildFarePerPax.Replace(",", ""));
                         ChildFares.Add(childFare);
                     }
                     fareInformation.ChildFares = ChildFares;
@@ -514,18 +428,12 @@ namespace Ey.Booking.Api.Builders
                         InfantFares infantFare = new InfantFares();
                         infantFare.FareId = Convert.ToString(infantFareInfo.First().FareId);
                         infantFare.FareBasisCode = infantFareInfo.First().FareBasisCode;
-                        infantFare.ChangeCost = CurrencyHelper.ToString(currency, infantFareInfo.First().ChangeCost);
                         infantFare.FareClass = infantFareInfo.First().FareClass;
                         infantFare.InfantFarePerPax = CurrencyHelper.ToString(currency, infantFareInfo.First().WebFareAmount);
                         infantFare.BaseInfantFarePerPax = CurrencyHelper.ToString(currency, infantFareInfo.First().DisplayAmountNoTaxes).Replace(",", "");
                         infantFare.DiscountPerPax = CurrencyHelper.ToString(currency, infantFareInfo.First().Discount);
                         infantFare.PaxCount = searchCriteria.Infants;
                         infantFare.TaxPerPax = CurrencyHelper.ToString(currency, infantFareInfo.First().Taxes);
-                        //infantFare.IncludedExtas = BuildIncludedExtras(infantFareInfo.First().CheckedBaggageIncludedInFare);
-                        //infantFare.ApplicableTaxes = BuildIncludedApplicableTaxes(infantFareInfo.First().ApplicableTaxDetails);
-                        infantFare.RuleName = infantFareInfo.First().RuleId;
-                        infantFare.RuleValue = CurrencyHelper.ToString(currency, infantFareInfo.First().OriginalFare);
-                        //faresForConversion.Add(infantFare.BaseInfantFarePerPax.Replace(",", ""));
                         InfantFares.Add(infantFare);
                     }
                     fareInformation.InfantFares = InfantFares;
@@ -533,20 +441,7 @@ namespace Ey.Booking.Api.Builders
             }
             return fareInformation;
         }
-
-        //private PointsEarned BuildPointsEarned(AccrualPoints accrualPoints)
-        //{
-        //    PointsEarned pointsEarned = new PointsEarned();
-        //    if (accrualPoints != null)
-        //    {
-        //        pointsEarned.BaseRewardPoints = accrualPoints.BaseRewardPoints;
-        //        pointsEarned.BaseTierPoints = accrualPoints.BaseTierPoints;
-        //        pointsEarned.BonusRewardPoints = accrualPoints.BonusRewardPoints;
-        //        pointsEarned.BonusTierPoints = accrualPoints.BonusTierPoints;
-        //    }
-        //    return pointsEarned;
-        //}
-
+        
         private IList<IncludedExtas> BuildIncludedExtras(List<IncludedBaggage> checkedBaggageIncludedInFare)
         {
             List<IncludedExtas> includedExtas = new List<IncludedExtas>();
@@ -606,8 +501,8 @@ namespace Ey.Booking.Api.Builders
                         if (!string.IsNullOrEmpty(AdultFare.TaxPerPax))
                             tax += Convert.ToDecimal(AdultFare.TaxPerPax) * Convert.ToDecimal(AdultFare.PaxCount);
 
-                        if (!string.IsNullOrEmpty(AdultFare.ChangeCost))
-                            changeCost += Convert.ToDecimal(AdultFare.ChangeCost) * Convert.ToDecimal(AdultFare.PaxCount);
+                        //if (!string.IsNullOrEmpty(AdultFare.ChangeCost))
+                        //    changeCost += Convert.ToDecimal(AdultFare.ChangeCost) * Convert.ToDecimal(AdultFare.PaxCount);
 
                     }
                 }
@@ -625,8 +520,8 @@ namespace Ey.Booking.Api.Builders
                         if (!string.IsNullOrEmpty(ChildFare.TaxPerPax))
                             tax += Convert.ToDecimal(ChildFare.TaxPerPax) * Convert.ToDecimal(ChildFare.PaxCount);
 
-                        if (!string.IsNullOrEmpty(ChildFare.ChangeCost))
-                            changeCost += Convert.ToDecimal(ChildFare.ChangeCost) * Convert.ToDecimal(ChildFare.PaxCount);
+                        //if (!string.IsNullOrEmpty(ChildFare.ChangeCost))
+                        //    changeCost += Convert.ToDecimal(ChildFare.ChangeCost) * Convert.ToDecimal(ChildFare.PaxCount);
                     }
                 }
 
@@ -643,14 +538,14 @@ namespace Ey.Booking.Api.Builders
                         if (!string.IsNullOrEmpty(InfantFare.TaxPerPax))
                             tax += Convert.ToDecimal(InfantFare.TaxPerPax) * Convert.ToDecimal(InfantFare.PaxCount);
 
-                        if (!string.IsNullOrEmpty(InfantFare.ChangeCost))
-                            changeCost += Convert.ToDecimal(InfantFare.ChangeCost) * Convert.ToDecimal(InfantFare.PaxCount);
+                        //if (!string.IsNullOrEmpty(InfantFare.ChangeCost))
+                        //    changeCost += Convert.ToDecimal(InfantFare.ChangeCost) * Convert.ToDecimal(InfantFare.PaxCount);
                     }
                 }
             }
 
             fare.BaseFare = CurrencyHelper.ToString(currency, baseFare);
-            fare.ChangeCost = CurrencyHelper.ToString(currency, changeCost);
+            //fare.ChangeCost = CurrencyHelper.ToString(currency, changeCost);
             fare.Discount = CurrencyHelper.ToString(currency, discount);
             fare.Tax = CurrencyHelper.ToString(currency, tax);
             fare.TotalFare = CurrencyHelper.ToString(currency, baseFare + tax);

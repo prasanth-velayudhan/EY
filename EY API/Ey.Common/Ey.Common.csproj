@@ -116,7 +116,6 @@
     <Compile Include="Contracts\DatabaseServices\IRepository.cs" />
     <Compile Include="EmailMapBusinessCommon.cs" />
     <Compile Include="Encryption\EncryptionHelper.cs" />
-    <Compile Include="ExceptionResource.cs" />
     <Compile Include="Exceptions\EyServiceException.cs" />
     <Compile Include="HashService.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
@@ -139,7 +138,6 @@
     <Compile Include="ISessionStorage.cs" />
     <Compile Include="Contracts\Model\ITelephoneCountryCode.cs" />
     <Compile Include="LogException.cs" />
-    <Compile Include="Model\FlyDubaiFlightNumber.cs" />
     <Compile Include="Model\ExceptionMessage.cs" />
     <Compile Include="Model\WebsiteSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

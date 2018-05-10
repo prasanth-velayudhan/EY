@@ -26,12 +26,12 @@ namespace Ey.Booking.Api.Models
         [Required]
         [JsonProperty("fareTypeName")]
         public string FareTypeName { get; set; }
-        [Required]
-        [JsonProperty("includes")]
-        public Dictionary<IncludeServiceType, string> IncludedServices { get; set; }
-        [Required]
-        [JsonProperty("pfIds")]
-        public IList<PfIds> PfIds { get; set; }
+        //[Required]
+        //[JsonProperty("includes")]
+        //public Dictionary<IncludeServiceType, string> IncludedServices { get; set; }
+        //[Required]
+        //[JsonProperty("pfIds")]
+        //public IList<PfIds> PfIds { get; set; }
 
         [Required]
         [JsonProperty("cabin")]
@@ -46,13 +46,13 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("fareCarrier")]
         public string FareCarrier { get; set; }
 
-        [Required]
-        [JsonProperty("ticketDesignator")]
-        public string TicketDesignator { get; set; }
+        //[Required]
+        //[JsonProperty("ticketDesignator")]
+        //public string TicketDesignator { get; set; }
 
-        [Required]
-        [JsonProperty("hashCode")]
-        public string HashCode { get; set; }
+        //[Required]
+        //[JsonProperty("hashCode")]
+        //public string HashCode { get; set; }
 
         [Required]
         [JsonProperty("fare")]
@@ -77,8 +77,7 @@ namespace Ey.Booking.Api.Models
         [Required]
         [JsonProperty("containsConnectionFlight")]
         public bool ContainsConnectionFlight { get; set; }
-
-
+        
         [JsonProperty("orderId")]
         public int OrderId { get; set; }
     }
@@ -93,9 +92,9 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("tax")]
         public string Tax { get; set; }
 
-        [Required]
-        [JsonProperty("changeCost")]
-        public string ChangeCost { get; set; }
+        //[Required]
+        //[JsonProperty("changeCost")]
+        //public string ChangeCost { get; set; }
 
         [Required]
         [JsonProperty("discount")]
@@ -113,21 +112,21 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("isPromoFare")]
         public bool IsPromoFare { get; set; }
 
-        [Required]
-        [JsonProperty("isPromoCodeApplied")]
-        public bool IsPromoCodeApplied { get; set; }
+        //[Required]
+        //[JsonProperty("isPromoCodeApplied")]
+        //public bool IsPromoCodeApplied { get; set; }
 
-        [Required]
-        [JsonProperty("solutionId")]
-        public string SolutionId { get; set; }
+        //[Required]
+        //[JsonProperty("solutionId")]
+        //public string SolutionId { get; set; }
 
-        [Required]
-        [JsonProperty("isStopOverFare")]
-        public bool IsStopOverFare { get; set; }
+        //[Required]
+        //[JsonProperty("isStopOverFare")]
+        //public bool IsStopOverFare { get; set; }
 
-        [Required]
-        [JsonProperty("combinables")]
-        public IList<string> Combinables { get; set; }
+        //[Required]
+        //[JsonProperty("combinables")]
+        //public IList<string> Combinables { get; set; }
     }
 
     public partial class FareInformation
@@ -156,9 +155,9 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("baseAdultFarePerPax")]
         public string BaseAdultFarePerPax { get; set; }
 
-        [Required]
-        [JsonProperty("changeCost")]
-        public string ChangeCost { get; set; }
+        //[Required]
+        //[JsonProperty("changeCost")]
+        //public string ChangeCost { get; set; }
 
         [Required]
         [JsonProperty("fareId")]
@@ -188,26 +187,26 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("paxCount")]
         public int PaxCount { get; set; }
 
-        [Required]
-        [JsonProperty("applicableTaxes")]
-        public IList<ApplicableTaxes> ApplicableTaxes { get; set; }
+        //[Required]
+        //[JsonProperty("applicableTaxes")]
+        //public IList<ApplicableTaxes> ApplicableTaxes { get; set; }
 
-        [Required]
-        [JsonProperty("includedExtas")]
-        public IList<IncludedExtas> IncludedExtas { get; set; }
+        //[Required]
+        //[JsonProperty("includedExtas")]
+        //public IList<IncludedExtas> IncludedExtas { get; set; }
 
         //[Required]
         //[JsonProperty("pointsEarned")]
         //public PointsEarned PointsEarned { get; set; }
 
         //Pricing Analytics
-        [Required]
-        [JsonProperty("ruleName")]
-        public string RuleName { get; set; }
+        //[Required]
+        //[JsonProperty("ruleName")]
+        //public string RuleName { get; set; }
 
-        [Required]
-        [JsonProperty("ruleValue")]
-        public string RuleValue { get; set; }
+        //[Required]
+        //[JsonProperty("ruleValue")]
+        //public string RuleValue { get; set; }
     }
     public partial class ChildFares
     {
@@ -233,9 +232,9 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("baseChildFarePerPax")]
         public string BaseChildFarePerPax { get; set; }
 
-        [Required]
-        [JsonProperty("changeCost")]
-        public string ChangeCost { get; set; }
+        //[Required]
+        //[JsonProperty("changeCost")]
+        //public string ChangeCost { get; set; }
 
 
         [Required]
@@ -250,22 +249,22 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("paxCount")]
         public int PaxCount { get; set; }
 
-        [Required]
-        [JsonProperty("applicableTaxes")]
-        public IList<ApplicableTaxes> ApplicableTaxes { get; set; }
+        //[Required]
+        //[JsonProperty("applicableTaxes")]
+        //public IList<ApplicableTaxes> ApplicableTaxes { get; set; }
 
-        [Required]
-        [JsonProperty("includedExtas")]
-        public IList<IncludedExtas> IncludedExtas { get; set; }
+        //[Required]
+        //[JsonProperty("includedExtas")]
+        //public IList<IncludedExtas> IncludedExtas { get; set; }
 
         //Pricing Analytics
-        [Required]
-        [JsonProperty("ruleName")]
-        public string RuleName { get; set; }
+        //[Required]
+        //[JsonProperty("ruleName")]
+        //public string RuleName { get; set; }
 
-        [Required]
-        [JsonProperty("ruleValue")]
-        public string RuleValue { get; set; }
+        //[Required]
+        //[JsonProperty("ruleValue")]
+        //public string RuleValue { get; set; }
     }
     public partial class InfantFares
     {
@@ -279,9 +278,9 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("infantFarePerPax")]
         public string InfantFarePerPax { get; set; }
 
-        [Required]
-        [JsonProperty("changeCost")]
-        public string ChangeCost { get; set; }
+        //[Required]
+        //[JsonProperty("changeCost")]
+        //public string ChangeCost { get; set; }
 
         [Required]
         [JsonProperty("fareBasisCode")]
@@ -307,22 +306,22 @@ namespace Ey.Booking.Api.Models
         [JsonProperty("paxCount")]
         public int PaxCount { get; set; }
 
-        [Required]
-        [JsonProperty("applicableTaxes")]
-        public IList<ApplicableTaxes> ApplicableTaxes { get; set; }
+        //[Required]
+        //[JsonProperty("applicableTaxes")]
+        //public IList<ApplicableTaxes> ApplicableTaxes { get; set; }
 
-        [Required]
-        [JsonProperty("includedExtas")]
-        public IList<IncludedExtas> IncludedExtas { get; set; }
+        //[Required]
+        //[JsonProperty("includedExtas")]
+        //public IList<IncludedExtas> IncludedExtas { get; set; }
 
-        //Pricing Analytics
-        [Required]
-        [JsonProperty("ruleName")]
-        public string RuleName { get; set; }
+        ////Pricing Analytics
+        //[Required]
+        //[JsonProperty("ruleName")]
+        //public string RuleName { get; set; }
 
-        [Required]
-        [JsonProperty("ruleValue")]
-        public string RuleValue { get; set; }
+        //[Required]
+        //[JsonProperty("ruleValue")]
+        //public string RuleValue { get; set; }
     }
     [JsonConverter(typeof(StringEnumConverter))]
     public enum IncludeServiceType

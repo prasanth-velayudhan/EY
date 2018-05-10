@@ -10,7 +10,7 @@ namespace Ey.Model.Common
     /// flight leg
     /// </summary>
     [Serializable]
-    public class Leg //: ILocalTravelContext
+    public class Leg
     {
         public int LFID { get; set; }
         public int PFID { get; set; }
@@ -48,33 +48,7 @@ namespace Ey.Model.Common
         private string operatingCarrier;
 
         public string OperatingCarrier { get; set; }
-
-        //public string OperatingCarrier
-        //{
-        //    get
-        //    {
-        //        if (string.IsNullOrEmpty(this.operatingCarrier))
-        //        {
-        //            return "FZ";
-        //        }
-        //        return this.operatingCarrier;
-        //    }
-        //    set
-        //    {
-        //        operatingCarrier = value;
-        //    }
-        //}
-
-        //public string OperatingCarrierName
-        //{
-        //    get
-        //    {
-        //        string operatingCarrierName;
-        //        Constants.Carriers.TryGetValue(this.OperatingCarrier != null ? this.OperatingCarrier.Trim() : null, out operatingCarrierName);
-        //        return operatingCarrierName;
-        //    }
-        //}
-
+        
         public string MarketingCarrier { get; set; }
 
         public string MarketingFlightNum { get; set; }
@@ -98,30 +72,12 @@ namespace Ey.Model.Common
         {
             return (Leg)this.MemberwiseClone();
         }
-        //Y class meal - MBRD, SBRD or string.Empty if no inventory available
         public string AvailableMealInventoryMstrCode { get; set; }
-        //public bool IsBusRoute { get; set; }
+
         public bool IsWithinCutoffPeriod { get; set; }
 
         public BookingCode BookingCodes { get; set; }
-
-        //public bool IsOtherAirline
-        //{
-        //    get
-        //    {
-        //        return OperatingCarrier.Trim().ToUpper() != Constants.FlydubaiCarrierCode;
-        //    }
-        //}
-
-        //public bool IsCodeshare
-        //{
-        //    get
-        //    {
-        //        return OperatingCarrier.Trim().ToUpper() != Constants.FlydubaiCarrierCode
-        //            && (string.IsNullOrEmpty(MarketingCarrier) || MarketingCarrier.Trim().ToUpper() == Constants.FlydubaiCarrierCode);
-        //    }
-        //}
-
+        
         public string EquipmentType { get; set; }
     }
 
