@@ -133,7 +133,7 @@ namespace Ey.Services.Builders
             }
             return paxInfo;
         }
-        public FlightResults BuildResponse(Ey.Services.SabreFareQuote.OTA_AirLowFareSearchRS serviceRes, string currencyCode)
+        public async Task<FlightResults> BuildResponse(Ey.Services.SabreFareQuote.OTA_AirLowFareSearchRS serviceRes, string currencyCode)
         {
             FlightResults response = null;
             if (serviceRes != null && serviceRes.Items != null && serviceRes.Items.Any())

@@ -18,9 +18,14 @@ namespace Ey.Business
             this._flightService = flightService;
         }
 
-        public Task<Ey.Model.Results.FlightResults> GetFlightFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
+        public async Task<Ey.Model.Results.FlightResults> GetFlightFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
         {
-            return this._flightService.GetFlightFareQuotes(searchCriteria, securityData);
+            return await this._flightService.GetFlightFareQuotes(searchCriteria, securityData);
+        }
+
+        public async Task<List<BrandedFareInfo>> GetIncludedServices(SearchCriteria searchCriteria, SecurityData securityData)
+        {
+            return await this._flightService.GetIncludedServices(searchCriteria, securityData);
         }
     }
 }

@@ -36,16 +36,7 @@ namespace Ey.Booking.Api.Builders
                     segment.DepartureDate = String.Format("{0:s}", segmentItem.Date);
                     segment.Direction = searchCriteria.Flights[i].FlightDirection.ToLower() == Direction.multiSector.ToString().ToLower() ? Direction.multiSector : searchCriteria.Flights[i].FlightDirection.ToLower() == "inbound" ? Direction.inBound : Direction.outBound;
                     segment.Route = string.Format("{0}_{1}", segment.Origin, segment.Dest);
-
-                    Dictionary<string, decimal> lowestAdultFares = GetLowestAdultFarePerPax(segmentItem);
-
-                    //if (lowestAdultFares.ContainsKey("lowestAdultFarePerPax"))
-                    //{
-                    //    segment.LowestAdultFarePerPax = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultFarePerPax"]);
-                    //    segment.LowestAdultFareTaxSumPerPax = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultTaxPerPax"]);
-                    //    segment.LowestAdultFareNoTaxUnformatted = CurrencyHelper.ToString(currency, lowestAdultFares["lowestAdultBaseFarePerPax"]);
-                    //}
-
+                    
                     segment.Flights = BuildFlights(segmentItem, false);
                     var distinctFareBrands = segment.Flights.SelectMany(x => x.FareTypes).Select(x =>
                                      new FareBrandInfo()
@@ -67,7 +58,7 @@ namespace Ey.Booking.Api.Builders
                             FareTypeID = brandInfo.FareTypeID.ToString(),
                             Cabin = brandInfo.CabinType.ToUpper() == "BUSINESS" ? Cabin.business : brandInfo.CabinType.ToUpper() == "ECONOMY" ? Cabin.economy : Cabin.first,
                             Name = Constants.FareBrandIds.Where(x => x.Key == brandInfo.FareTypeName).FirstOrDefault().Value,
-                            IncludedServices = BuildBrandIncludeServices(segment.Flights, response.BrandedFareInfo, segmentItem.JourneySegmentId, brandInfo.FareTypeID.ToString()),
+                            IncludedServices = BuildBrandIncludeServices(response.BrandedFareInfo, segmentItem.JourneySegmentId, brandInfo.FareTypeID.ToString()),
                             OrderId = brandInfo.OrderId
                         });
                     }
@@ -88,13 +79,12 @@ namespace Ey.Booking.Api.Builders
                     segments.Add(segment);
                 }
             }
-
-            //faresToPointsRQ = string.Join(",", faresForConversion.Distinct());
+            
             return segments;
         }
         public static T GetPropertyValue<T>(object obj, string propName) { return (T)obj.GetType().GetProperty(propName).GetValue(obj, null); }
 
-        private Dictionary<IncludeServiceType, string> BuildBrandIncludeServices(IList<Flights> flights, List<BrandedFareInfo> BrandedFareInfo, int segmentId, string faretypeId = "")
+        private Dictionary<IncludeServiceType, string> BuildBrandIncludeServices(List<BrandedFareInfo> BrandedFareInfo, int segmentId, string faretypeId = "")
         {
             try
             {
@@ -187,6 +177,7 @@ namespace Ey.Booking.Api.Builders
                 };
             }
         }
+
         private int getFareOrderId(string brandId)
         {
             if (Enum.IsDefined(typeof(Ey.Common.Enums.FareBrandOrder), (brandId ?? "").Trim()))
@@ -195,6 +186,7 @@ namespace Ey.Booking.Api.Builders
             }
             return 0;
         }
+
         public List<Flights> BuildFlights(OneDayJourneySegment segmentItem, bool IsRerpice)
         {
             List<Flights> flights = new List<Flights>();
@@ -219,12 +211,9 @@ namespace Ey.Booking.Api.Builders
                     else
                         flight.TotalDuration = string.Format("{0:hh}:{1:mm}", flightItem.Duration, flightItem.Duration);
                     flight.IsAvailabile = flightItem.FlightFares.Any(x => !x.IsSoldOut(searchCriteria.Adults + searchCriteria.Children));
-                    //flight.IsInterLine = flightItem.IsInterLine;
-                    //flight.IsCodeShare = flightItem.IsCodeShare;
                     flight.Legs = BuildLegs(flightItem);
                     flight.FareTypes = BuildFares(flightItem, IsRerpice);
                     flight.FlightNum = flightItem.FlightNum;
-                    //flight.FlightGroupID = flightItem.FlightGroupID;
                     flights.Add(flight);
                 }
             }
@@ -442,40 +431,6 @@ namespace Ey.Booking.Api.Builders
             return fareInformation;
         }
         
-        private IList<IncludedExtas> BuildIncludedExtras(List<IncludedBaggage> checkedBaggageIncludedInFare)
-        {
-            List<IncludedExtas> includedExtas = new List<IncludedExtas>();
-            if (checkedBaggageIncludedInFare != null)
-            {
-                foreach (var baggage in checkedBaggageIncludedInFare)
-                {
-                    IncludedExtas includedExta = new IncludedExtas();
-                    includedExta.Type = baggage.Type;
-                    includedExta.Code = baggage.Code;
-                    includedExta.Value = Convert.ToString(baggage.Weight);
-                    includedExtas.Add(includedExta);
-                }
-            }
-            return includedExtas;
-        }
-
-        private IList<ApplicableTaxes> BuildIncludedApplicableTaxes(List<ApplicableTaxDetail> applicableTaxdetails)
-        {
-            List<ApplicableTaxes> includedApplicableTaxes = new List<ApplicableTaxes>();
-            if (applicableTaxdetails != null)
-            {
-                foreach (var applicableTaxdetail in applicableTaxdetails)
-                {
-                    ApplicableTaxes includedApplicableTax = new ApplicableTaxes();
-                    includedApplicableTax.Amount = CurrencyHelper.ToString(currency, applicableTaxdetail.Amt);
-                    includedApplicableTax.TaxCode = applicableTaxdetail.TaxCode;
-                    includedApplicableTax.TaxId = applicableTaxdetail.TaxID.ToString();
-                    includedApplicableTaxes.Add(includedApplicableTax);
-                }
-            }
-            return includedApplicableTaxes;
-        }
-
         private Fare BuildFlightFare(FareInformation fareInfo)
         {
             Fare fare = new Fare();
@@ -555,42 +510,7 @@ namespace Ey.Booking.Api.Builders
 
             return fare;
         }
-
-        private IList<PfIds> GetPhysicalFlightIds(Flight flightItem, List<Bookingcode> bookingCode, string defaultCabin)
-        {
-            if (flightItem != null)
-            {
-                if (flightItem.Legs.Count() > 0)
-                {
-                    List<PfIds> pfIds = new List<PfIds>();
-                    foreach (Leg leg in flightItem.Legs)
-                    {
-                        string cabin = "";
-                        string fareclass = "";
-                        try
-                        {
-                            cabin = bookingCode.First(w => w.PFID == leg.PFID).cabin;
-                            fareclass = bookingCode.First(w => w.PFID == leg.PFID).RBD;
-                        }
-                        catch (System.Exception)
-                        {
-                            cabin = defaultCabin;
-                        }
-
-                        pfIds.Add(new PfIds
-                        {
-                            PfId = Convert.ToString(leg.PFID),
-                            Date = String.Format("{0:s}", leg.DepartureDate),
-                            FareClass = fareclass,
-                            Cabin = cabin
-                        });
-                    }
-                    return pfIds;
-                }
-            }
-            return null;
-        }
-
+        
         private bool? IsConnectionFlight(Flight flightItem)
         {
             if (flightItem != null)
@@ -621,8 +541,7 @@ namespace Ey.Booking.Api.Builders
             else
                 return 999999999999;
         }
-
-
+        
         public List<MultiDayflights> BuildMultiDaySegments(List<MultipleDayJourneySegment> response, int noOfDays)
         {
             List<MultiDayflights> segments = new List<MultiDayflights>();
@@ -649,35 +568,60 @@ namespace Ey.Booking.Api.Builders
             }
             return segments.OrderBy(a => a.DepartureDate).ToList();
         }
-
-        private List<DayLowestFare> BuildLowestFareList(MultipleDayJourneySegment segmentItem, DateTime searchedDate, int noOfDays)
+        
+        public List<Segments> BuildIncludedServiceResponse(List<Model.Results.BrandedFareInfo> includes, Model.Search.SearchCriteria searchCriteria)
         {
-            List<DayLowestFare> vm = new List<DayLowestFare>();
-            for (int i = -noOfDays / 2; i < (noOfDays / 2) + 1; i++)
+            var brandList = GetBrandList();
+            return searchCriteria.Flights.Select(flt => new Segments()
             {
-                DateTime date = searchedDate.AddDays(i).Date;
-                var dayFares = segmentItem.DayLowestFares.FirstOrDefault(l => l.Date.Date == date);
-                if (dayFares != null)
+                Route = flt.Origin + "_" + flt.Destination,
+                Origin = flt.Origin,
+                Dest = flt.Destination,
+                Direction = !string.IsNullOrEmpty(flt.FlightDirection) && flt.FlightDirection.ToLower() == "inbound" ? Direction.inBound : Direction.outBound,
+                DepartureDate = String.Format("{0:s}", flt.DepartureDate),
+                Brands = brandList != null ? brandList.Select(brandInfo => new Brand
                 {
-                    vm.Add(new DayLowestFare
-                    {
-                        Date = dayFares.Date,
-                        WebFareAmount = dayFares.WebFareAmount,
-                        WebFareAmountNoTax = dayFares.WebFareAmountNoTax,
-                        WebTaxSum = dayFares.WebTaxSum,
-                        isSoldOut = dayFares.isSoldOut,
-                        isCodeShare = dayFares.isCodeShare,
-                        isInterline = dayFares.isInterline,
-                        LowestFareFlights = dayFares.LowestFareFlights
-                    });
-                }
-                else
-                {
-                    vm.Add(new DayLowestFare { Date = date, FareAmount = 0 });
-                }
-            }
+                    FareTypeID = brandInfo.FareTypeID.ToString(),
+                    Cabin = brandInfo.CabinType.ToUpper() == "BUSINESS" ? Cabin.business : brandInfo.CabinType.ToUpper() == "ECONOMY" ? Cabin.economy : Cabin.first,
+                    Name = Constants.FareBrandIds.Where(x => x.Key == brandInfo.FareTypeID).FirstOrDefault().Value,
+                    IncludedServices = BuildBrandIncludeServices(includes, flt.SegmentId, brandInfo.FareTypeID.ToString()),
+                    OrderId = brandInfo.OrderId
+                }).ToList() : null
+            }).ToList();
+        }
 
-            return vm;
+        private List<FareBrandInfo> GetBrandList()
+        {
+            return new List<FareBrandInfo>() {
+                new FareBrandInfo()
+                {
+                    FareTypeID = "YS",
+                    FareTypeName = "Economy Saver",
+                    CabinType = "economy",
+                    OrderId = getFareOrderId("YS")
+                },
+                new FareBrandInfo()
+                {
+                    FareTypeID = "YV",
+                    FareTypeName = "Economy Classic",
+                    CabinType = "economy",
+                    OrderId = getFareOrderId("YV")
+                },
+                new FareBrandInfo()
+                {
+                    FareTypeID = "YF",
+                    FareTypeName = "Economy Flex",
+                    CabinType = "economy",
+                    OrderId = getFareOrderId("YF")
+                },
+                new FareBrandInfo()
+                {
+                    FareTypeID = "JF",
+                    FareTypeName = "Business Flex",
+                    CabinType = "business",
+                    OrderId = getFareOrderId("JF")
+                },
+            };
         }
     }
 }

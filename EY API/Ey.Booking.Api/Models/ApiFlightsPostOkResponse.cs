@@ -12,6 +12,10 @@ namespace Ey.Booking.Api.Models
 
         [Required]
         [JsonProperty("segments")]
-        public IList<Segments> Segments { get; set; }        
+        public IList<Segments> Segments { get; set; }
+
+        [Required]
+        [JsonProperty("notifications")]
+        public List<Notification> Notifications { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace Ey.Services
     public interface IFlightService
     {
         Task<Ey.Model.Results.FlightResults> GetFlightFareQuotes(Ey.Model.Search.SearchCriteria searchCriteria, Ey.Model.SecurityData securityData);
+
+        Task<List<Ey.Model.Results.BrandedFareInfo>> GetIncludedServices(Ey.Model.Search.SearchCriteria searchCriteria, Ey.Model.SecurityData securityData);
     }
 }

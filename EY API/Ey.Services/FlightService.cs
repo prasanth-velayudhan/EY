@@ -28,7 +28,7 @@ namespace Ey.Services
             this._httpClentService = httpClentService;
             this._sabreService = sabreService;
         }
-        private async Task<Ey.Model.Results.FlightResults> GetFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
+        public async Task<Ey.Model.Results.FlightResults> GetFlightFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
         {
             Builders.FlightFareQuoteBuilder fltServiceRqRsBuilder = new Builders.FlightFareQuoteBuilder();
             var secHeader = new Security()
@@ -39,23 +39,22 @@ namespace Ey.Services
             OTA_AirLowFareSearchRQ frReq = fltServiceRqRsBuilder.GetFlightFareSearchRequest(searchCriteria);
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
             var res = this._sabreService.SSSAdvShopRQ(new SSSAdvShopRQRequest() { MessageHeader = msgHeader, Security = secHeader, OTA_AirLowFareSearchRQ = frReq });
-            return fltServiceRqRsBuilder.BuildResponse(res.OTA_AirLowFareSearchRS, frReq.TravelerInfoSummary.PriceRequestInformation.CurrencyCode);
+            return await fltServiceRqRsBuilder.BuildResponse(res.OTA_AirLowFareSearchRS, frReq.TravelerInfoSummary.PriceRequestInformation.CurrencyCode);
         }
-        public async Task<Ey.Model.Results.FlightResults> GetFlightFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
-        {
-            var fareTask = Task.Run(() => this.GetFareQuotes(searchCriteria, securityData));
-            //Task<BrandedFareInfo>[] tasks = searchCriteria.Flights.Select((criteria, i) => Task.Run(() => GetFareBrandInfo(criteria, securityData.SabreToken, i + 1))).ToArray();
+
+        public async Task<List<BrandedFareInfo>> GetIncludedServices(SearchCriteria searchCriteria, SecurityData securityData)
+        {            
+            Task<BrandedFareInfo>[] tasks = searchCriteria.Flights.Select((criteria, i) => Task.Run(() => GetFareBrandInfo(criteria, securityData.SabreToken, i + 1))).ToArray();
             Task.WaitAll();
-            var result = fareTask.Result;
-            //result.BrandedFareInfo = new List<BrandedFareInfo>();
-            //foreach (var tsk in tasks)
-            //{
-            //    if (tsk.Result != null)
-            //    {
-            //        result.BrandedFareInfo.Add(tsk.Result);
-            //    }
-            //}
-            return result;
+            var brandedFareInfo = new List<BrandedFareInfo>();
+            foreach (var tsk in tasks)
+            {
+                if (tsk.Result != null)
+                {
+                    brandedFareInfo.Add(tsk.Result);
+                }
+            }
+            return brandedFareInfo;
         }
 
         private async Task<BrandedFareInfo> GetFareBrandInfo(FlightCriteria criteria, string token, int criteriaIndex)

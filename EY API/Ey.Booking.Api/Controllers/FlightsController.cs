@@ -40,22 +40,19 @@ namespace Ey.Booking.Api.Controllers
             var flightCriteria = new List<Model.Search.FlightCriteria>();
             try
             {
-                foreach (var criteria in requestContent.SearchCriteria)
-                {
-                    flightCriteria.Add(new Model.Search.FlightCriteria
-                    {
-                        DepartureDate = DateTime.ParseExact(criteria.Date, "M/d/yy hh:mm tt", CultureInfo.InvariantCulture),
-                        Origin = criteria.Origin,
-                        Destination = criteria.Dest,
-                        FlightDirection = Convert.ToString(criteria.Direction).ToLower()
-                    });
-                }
                 var searchCriteria = new Model.Search.SearchCriteria
                 {
                     Adults = requestContent.PaxInfo.AdultCount.Value,
                     Children = requestContent.PaxInfo.ChildCount.Value,
                     Infants = requestContent.PaxInfo.InfantCount.Value,
-                    Flights = flightCriteria,
+                    Flights = requestContent.SearchCriteria.Select((criteria, i) => new Model.Search.FlightCriteria
+                    {
+                        DepartureDate = DateTime.ParseExact(criteria.Date, "M/d/yy hh:mm tt", CultureInfo.InvariantCulture),
+                        Origin = criteria.Origin,
+                        Destination = criteria.Dest,
+                        FlightDirection = Convert.ToString(criteria.Direction).ToLower(),
+                        SegmentId = i + 1
+                    }).ToList(),
                     PromoCode = requestContent.PromoCode,
                     IsFlexible = false,
                     CabinType = requestContent.CabinClass ?? "",
@@ -63,7 +60,6 @@ namespace Ey.Booking.Api.Controllers
                 };
 
                 List<Notification> validationMessages = ValidateRequest(searchCriteria);
-                DateTime sessionExpGmt = DateTime.MinValue;
                 List<Segments> segments = new List<Segments>();
                 var securityData = new SecurityData();
                 object securityObj;
@@ -78,25 +74,13 @@ namespace Ey.Booking.Api.Controllers
                 {
                     var segmentResults = await this._flightTask.GetFlightFareQuotes(searchCriteria, securityData);
                     segments = new Builders.FlightSearchResultBuilder().BuildResponse(segmentResults, searchCriteria, securityData);
-                    if (securityData != null)
-                    {
-                        int exptime = 45;
-                        int.TryParse(System.Configuration.ConfigurationManager.AppSettings["SabreSessionExpiryMinutes"],
-                            out exptime);
-                        DateTime dtStart = securityData.ExpiryDateTime.AddMinutes(exptime * -1);
-                        sessionExpGmt = dtStart.ToUniversalTime().AddMinutes(Common.Constants.SessionTimeoutDuration);
-                    }
                     statusCode = HttpStatusCode.OK;
                 }
 
                 return Request.CreateResponse(statusCode, new ApiFlightsPostOkResponse()
                 {
-                    //ServerDateTimeUTC = String.Format("{0:s}", DateTime.UtcNow),
-                    //SessionDuration = Convert.ToString(Common.Constants.SessionTimeoutDuration),
-                    //Notifications = validationMessages,
                     Segments = segments,
-                    //SessionExpiryGMT = sessionExpGmt,
-                    //SessionRemainingTime = _securityToken.GetRemainingSessionDuration(securityData)
+                    Notifications = validationMessages
                 });
             }
             catch (Exception ex)
@@ -171,6 +155,79 @@ namespace Ey.Booking.Api.Controllers
                 DefaultMessage = "Validation failed",
             };
             return notification;
+        }
+
+        [Route("includedServices")]
+        public virtual async Task<HttpResponseMessage> IncludedServices(ApiFlightsPostRequest requestContent)
+        {
+
+            if (requestContent == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new Notification
+                {
+                    CmsKey = "GeneralExceptionMessage",
+                    DefaultMessage = "Sorry there was a problem. Please try again.",
+                    CanContinue = false
+                });
+            }
+
+            HttpStatusCode statusCode;
+            var flightCriteria = new List<Model.Search.FlightCriteria>();
+            try
+            {
+                var searchCriteria = new Model.Search.SearchCriteria
+                {
+                    Adults = requestContent.PaxInfo.AdultCount.Value,
+                    Children = requestContent.PaxInfo.ChildCount.Value,
+                    Infants = requestContent.PaxInfo.InfantCount.Value,
+                    Flights = requestContent.SearchCriteria.Select((criteria, i) => new Model.Search.FlightCriteria
+                    {
+                        DepartureDate = DateTime.ParseExact(criteria.Date, "M/d/yy hh:mm tt", CultureInfo.InvariantCulture),
+                        Origin = criteria.Origin,
+                        Destination = criteria.Dest,
+                        FlightDirection = Convert.ToString(criteria.Direction).ToLower(),
+                        SegmentId = i + 1
+                    }).ToList(),
+                    PromoCode = requestContent.PromoCode,
+                    IsFlexible = false,
+                    CabinType = requestContent.CabinClass ?? "",
+                    CurrencyCode = requestContent.CurrencyCode
+                };
+
+                List<Notification> validationMessages = ValidateRequest(searchCriteria);
+                List<Segments> segments = new List<Segments>();
+                var securityData = new SecurityData();
+                object securityObj;
+                Request.Properties.TryGetValue("securityData", out securityObj);
+                securityData = (SecurityData)securityObj;
+
+                if (validationMessages.Any())
+                {
+                    statusCode = HttpStatusCode.BadRequest;
+                }
+                else
+                {
+                    var includes = await this._flightTask.GetIncludedServices(searchCriteria, securityData);
+                    segments = new Builders.FlightSearchResultBuilder().BuildIncludedServiceResponse(includes, searchCriteria);
+                    statusCode = HttpStatusCode.OK;
+                }
+
+                return Request.CreateResponse(statusCode, new ApiFlightsPostOkResponse()
+                {
+                    Notifications = validationMessages,
+                    Segments = segments,
+                });
+            }
+            catch (Exception ex)
+            {
+                // Log exception details
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new Notification
+                {
+                    CmsKey = "GeneralExceptionMessage",
+                    DefaultMessage = "Sorry there was a problem. Please try again.",
+                    CanContinue = false
+                });
+            }
         }
     }
 }
