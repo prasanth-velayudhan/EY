@@ -16,6 +16,11 @@ namespace Ey.Services
     /// <remarks></remarks>
     public class SecurityService : ISecurityService
     {
+        private readonly SSSAdvShopPortType _sabreService;
+        public SecurityService(SSSAdvShopPortType sabreService)
+        {         
+            this._sabreService = sabreService;
+        }
         /// <summary>
         /// Retrieves the security token.
         /// </summary>
@@ -54,18 +59,12 @@ namespace Ey.Services
                 };
 
                 System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-                BasicHttpBinding binding = new BasicHttpBinding();
-                binding.Security.Mode = BasicHttpSecurityMode.Transport;
-                binding.OpenTimeout = new TimeSpan(0, 100, 0);
-                binding.CloseTimeout = new TimeSpan(0, 100, 0);
-                binding.SendTimeout = new TimeSpan(0, 100, 0);
-                binding.ReceiveTimeout = new TimeSpan(0, 100, 0);
-                SSSAdvShopPortTypeClient client = new SSSAdvShopPortTypeClient(binding, new EndpointAddress(new Uri("https://sws-crt.cert.sabre.com")));
-                var os = client.SSSAdvShopRQ(ref msgHeader, ref secHeader, null);
 
-                if (secHeader != null && !string.IsNullOrEmpty(secHeader.BinarySecurityToken))
+                var res = this._sabreService.SSSAdvShopRQ(new SSSAdvShopRQRequest() { MessageHeader = msgHeader, Security = secHeader, OTA_AirLowFareSearchRQ = null });
+
+                if (res != null && !string.IsNullOrEmpty(res.Security.BinarySecurityToken))
                 {
-                    token = secHeader.BinarySecurityToken;
+                    token = res.Security.BinarySecurityToken;
                 }
             }
             catch (Exception ex)

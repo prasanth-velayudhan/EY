@@ -21,10 +21,12 @@ namespace Ey.Services
     public class FlightService : IFlightService
     {
         private readonly IHttpClientService _httpClentService;
+        private readonly SSSAdvShopPortType _sabreService;
 
-        public FlightService(IHttpClientService httpClentService)
+        public FlightService(IHttpClientService httpClentService, SSSAdvShopPortType sabreService)
         {
             this._httpClentService = httpClentService;
+            this._sabreService = sabreService;
         }
         private async Task<Ey.Model.Results.FlightResults> GetFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
         {
@@ -36,33 +38,23 @@ namespace Ey.Services
             var msgHeader = fltServiceRqRsBuilder.GetFlightFareMessageHeader();
             OTA_AirLowFareSearchRQ frReq = fltServiceRqRsBuilder.GetFlightFareSearchRequest(searchCriteria);
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-            BasicHttpBinding binding = new BasicHttpBinding();
-            binding.Security.Mode = BasicHttpSecurityMode.Transport;
-            binding.OpenTimeout = new TimeSpan(0, 100, 0);
-            binding.CloseTimeout = new TimeSpan(0, 100, 0);
-            binding.SendTimeout = new TimeSpan(0, 100, 0);
-            binding.ReceiveTimeout = new TimeSpan(0, 100, 0);
-            binding.MaxReceivedMessageSize = 2147483647;
-            binding.MaxBufferSize = 2147483647;
-            binding.MaxBufferPoolSize = 2147483647;
-            SSSAdvShopPortTypeClient client = new SSSAdvShopPortTypeClient(binding, new EndpointAddress(new Uri(ConfigurationManager.AppSettings["FareQuotesEndpointUrl"])));
-            var os = client.SSSAdvShopRQ(ref msgHeader, ref secHeader, frReq);
-            return fltServiceRqRsBuilder.BuildResponse(os, frReq.TravelerInfoSummary.PriceRequestInformation.CurrencyCode);
+            var res = this._sabreService.SSSAdvShopRQ(new SSSAdvShopRQRequest() { MessageHeader = msgHeader, Security = secHeader, OTA_AirLowFareSearchRQ = frReq });
+            return fltServiceRqRsBuilder.BuildResponse(res.OTA_AirLowFareSearchRS, frReq.TravelerInfoSummary.PriceRequestInformation.CurrencyCode);
         }
         public async Task<Ey.Model.Results.FlightResults> GetFlightFareQuotes(SearchCriteria searchCriteria, SecurityData securityData)
         {
             var fareTask = Task.Run(() => this.GetFareQuotes(searchCriteria, securityData));
-            Task<BrandedFareInfo>[] tasks = searchCriteria.Flights.Select((criteria, i) => Task.Run(() => GetFareBrandInfo(criteria, securityData.SabreToken, i + 1))).ToArray();
+            //Task<BrandedFareInfo>[] tasks = searchCriteria.Flights.Select((criteria, i) => Task.Run(() => GetFareBrandInfo(criteria, securityData.SabreToken, i + 1))).ToArray();
             Task.WaitAll();
             var result = fareTask.Result;
-            result.BrandedFareInfo = new List<BrandedFareInfo>();
-            foreach(var tsk in tasks)
-            {
-                if (tsk.Result != null)
-                {
-                    result.BrandedFareInfo.Add(tsk.Result);
-                }
-            }
+            //result.BrandedFareInfo = new List<BrandedFareInfo>();
+            //foreach (var tsk in tasks)
+            //{
+            //    if (tsk.Result != null)
+            //    {
+            //        result.BrandedFareInfo.Add(tsk.Result);
+            //    }
+            //}
             return result;
         }
 
@@ -86,6 +78,6 @@ namespace Ey.Services
             }
             return response;
         }
-        
+
     }
 }

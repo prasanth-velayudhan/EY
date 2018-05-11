@@ -15,6 +15,8 @@ namespace Ey.Services.Configuration
                 assemblyScanner.WithDefaultConventions();
             });
 
+            this.For<Services.SabreFareQuote.SSSAdvShopPortType>().Use(new Services.SabreFareQuote.SSSAdvShopPortTypeClient()).Singleton();
+
             //this.For<IRadixxSession>().Use<UserSession>();            
         }
     }
